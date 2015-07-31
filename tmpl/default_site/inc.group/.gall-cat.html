@@ -1,0 +1,30 @@
+          {exp:channel:entries channel="gallery" category="{embed:catid}" limit="99"}
+        {if {count} %3 == "1"}
+        <div class="row gly">
+        {/if}
+          
+          <div class="col-xs-4">
+
+                <a href="{url_title_path='gallery/album'}"  title="{title}">
+                	{gallery limit="1" cover_only="yes"}
+                  {exp:ce_img:pair src="{image:url:small}" allow_scale_larger="yes" crop="yes" width="240" height="184" cache="yes" refresh="60"}
+                  <img src="{made}"  class="example-image" >
+                  {/exp:ce_img:pair}
+                	{/gallery}
+                  {gallery}
+                  {if "{image:count}" == 1}
+                  <span class="borb-botom">
+                    <p>
+                        <span>{title}</span><br>
+                        {image:total} фото
+                    </p>
+                  </span>      
+                  {/if}
+                  {/gallery}
+                </a>
+          </div>
+          
+         {if count %3 == "0" || count == total_results }
+        </div>
+        {/if}
+          {/exp:channel:entries}

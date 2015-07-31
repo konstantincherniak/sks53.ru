@@ -1,0 +1,78 @@
+{layout="layouts/.base"}
+
+{layout:set name="title" value="Статьи{if paginated}, страница {exp:math_plus calculate="{page_offset} + 1"}{math_plus_result}{/exp:math_plus}{/if}"}
+
+  <section class="s-container s-nav-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <a href="{site_url}">Главная</a>
+          <i class="icon icon-navigation"></i>
+          <a class="static-a" href="/articles">Статьи</a>
+        </div>
+      </div>
+    </div>
+    <hr>
+  </section>
+
+
+
+<section class="s-container elements-m table-main table-section last-mod">
+    <div class="container">
+        <div class="row">
+            <div class="cc-content">
+
+      <h1 class="text-center">Статьи</h1>
+
+{exp:channel:entries channel="articles" disable="categories|category_fields|member_data" cache="no" refresh="60" limit="12" paginate="bottom" paginate_base="articles"}
+
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h3><a href="{url_title_path='articles'}">{title}</a> {edit_link}</h3>
+      </div>
+      {assets limit="1"}
+          {exp:ce_img:pair src="{url}" crop="yes" width="240" cache="yes" refresh="60"}
+            <a href="{url_title_path='articles'}"><img src="{made}" alt="{alt_text}"></a>
+          {/exp:ce_img:pair}
+      {/assets}
+      <div class="caption">
+        {exp:eehive_hacksaw chars="200" append="&hellip;"}{content}{/exp:eehive_hacksaw}
+        <a href="{url_title_path='articles'}">Подробнее</a>
+      </div>
+    </div>
+  </div>
+
+{!--
+  <article>
+  <p class="news-date">{entry_date format="%d %M %Y"}</p>
+  <h2><a class="news-title" href="{url_title_path='articles'}">{title}</a> {edit_link}</h2>
+    <div class="news-text">
+      {content:excerpt}
+    </div>
+  </article>
+--}
+  		{paginate}
+    		{pagination_links}
+      		<ul class="pagination">
+      		  {previous_page}
+            <li><a href="{pagination_url}">&laquo;</a></li>
+            {/previous_page}
+            {page}
+            <li {if current_page}class="active"{/if}><a href="{pagination_url}">{pagination_page_number}</a></li>
+            {/page}
+            {next_page}
+            <li><a href="{pagination_url}">&raquo;</a></li>
+            {/next_page}
+          </ul>
+        {/pagination_links}
+  		{/paginate}
+
+{/exp:channel:entries}
+
+</div>
+    </div>
+  </div>
+</section>
+
+

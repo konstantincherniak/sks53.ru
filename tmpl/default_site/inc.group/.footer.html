@@ -1,0 +1,102 @@
+<!-- footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-5">
+                <h6>КОНТАКТЫ:</h6>
+                <hr>
+                <ul>
+                    <li><i class="icon icon-map"></i>
+                        <p>
+                            {address}
+                        </p>
+                    </li>
+                    {exp:low_variables:parse var="contact_phones" limit="3"}
+                    <li>
+                        <i class="icon icon-nr"></i>{cell_1} <span>{cell_2}</span>
+
+                    </li>
+                    {/exp:low_variables:parse}
+                    <li><i class="icon icon-email"></i><a href="mailto:{contact_email}">{contact_email}</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-7 right-footr">
+                <h6>Полезные статьи 
+                <a href="/articles/" class="link-right">Архив статей</a></h6>
+                <hr>
+                {exp:channel:entries channel="articles" disable="categories|category_fields|member_data|paginate" refresh="60" limit="1" dynamic="no"}
+                <p>
+                    <strong>{title}</strong>{edit_link}<br>
+                    {exp:eehive_hacksaw chars = "300"}{content}{/exp:eehive_hacksaw}...
+                    <a href="{url_title_path='articles'}" class="link-right">Читать полностью</a>
+                </p>
+                {/exp:channel:entries}
+            </div>
+        </div>
+        <hr>
+        <div class="row footer-bottom">
+            <div class="col-xs-4 fot-left">
+                <img src="/img/logo-footer.jpg" alt="">© {current_time format="%Y"} СК «Золотые руки»
+            </div>
+            <div class="col-xs-4 fot-right">
+                <ul>
+                {exp:low_variables:parse var="social_var" }
+                    <li>
+                      <a href="{cell_2}" class="icon ico-{if cell_1=="vk"}vk{/if}{if cell_1=="fb"}fb{/if}{if cell_1=="twt"}twt{/if}{if cell_1=="ok"}ok{/if}{if cell_1=="google-plus"}google-plus{/if}"></a>
+                    </li>
+                {/exp:low_variables:parse}
+                </ul>
+            </div>
+            <div class="col-xs-4 fot-right">
+                <p><a href="http://kuratov.ru">разработка сайта</a>– kuratov.ru</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer -->
+<!-- Modal -->
+<div class="modal fade" id="callbackModalW" tabindex="-1" role="dialog" aria-labelledby="callbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="callbackModalLabel">Обратный звонок</h4>
+      </div>
+      <div class="modal-body">
+        {exp:freeform:form
+        form:id="callbackModal"
+        form:role="form"
+        form_id="5"
+        required="name|phone"
+        require_captcha="no"
+        require_ip="yes"
+      }
+       <input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
+              <div id="general_errors_callbackModal"></div>
+
+           <div class="form-action">
+                <div class="head-form">
+                <div class="inp">
+                    <span>Имя*:</span><input type="text" class="t-input" placeholder="Ваше имя" name="name">
+                    <div class="error_message"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="inp">
+                    <span>Телефон*:</span><input type="text" class="t-input" placeholder="Ваш телефон" name="phone">
+                    <div class="error_message"></div>
+                </div>
+                <div class="clear"></div>
+                <button class="btn btn-warning"><i class="fa fa-paper-plane"></i> Оставить заявку</button>
+                <div class="clear"></div>
+           </div>
+           </div>
+  
+      {/exp:freeform:form}
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+{siteheart}

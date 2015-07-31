@@ -1,0 +1,36 @@
+{layout="layouts/.base"}
+
+{exp:channel:entries channel="articles" url_title="{segment:url_title}" require_entry="yes" disable="categories|category_fields|member_data|pagination" cache="no" refresh="60" limit="1"}
+{if no_results}{redirect="404"}{/if}
+
+{layout:set name="title" value="{title}"}
+{layout:set name="entry_id" value="{entry_id}"}
+         
+
+  <section class="s-container s-nav-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <a href="{site_url}">Главная</a>
+          <i class="icon icon-navigation"></i>
+          <a href="/articles">Статьи</a>
+          <i class="icon icon-navigation"></i>
+          <a class="static-a" href="/articles/{url_title}">{title}</a>
+        </div>
+      </div>
+    </div>
+  	<hr>
+	</section>
+
+<section class="s-container elements-m table-main table-section last-mod">
+    <div class="container">
+        <div class="row">
+            <div class="cc-content">
+            	<h1 class="text-center">{title} {edit_link}</h1>
+							{content}
+
+						</div>
+    		</div>
+		</div>
+</section>
+{/exp:channel:entries}

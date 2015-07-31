@@ -1,0 +1,114 @@
+{layout="layouts/.base"}
+
+{layout:set name="title" value="Отзывы"}
+
+<div class="row main-content">
+<div class="col-xs-12">
+      <ol class="breadcrumb">
+        <li><a href="/">Главная</a></li>
+        <li>Отзывы</li>
+      </ol>
+        {if segment_2 == 'send'}
+          <div class="alert alert-success">
+            Ваш отзыв успешно отправлен менеджеру компании.
+          </div>
+          <script>
+            var showtab = 'order';
+          </script>
+        {/if}
+      <hr/>
+      <h1>Отзывы</h1>
+
+    <div class="panel-group faq" id="accordion">
+        {exp:freeform:entries form_name="{segment_1}" limit="10" status="open"}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                  <b>{freeform:field:name}</b> {if freeform:field:geo}({freeform:field:geo}){/if}{if freeform:field:date_field}, {freeform:field:date_field}{if:else}{freeform:entry_date format="%d.%m.%Y"}{/if} {if member_group == '1' OR member_group == '6'} <a href="/admin.php?S=0&D=cp&C=addons_modules&M=show_module_cp&module=freeform&method=edit_entry&form_id=3&entry_id={freeform:entry_id} "><img src="/img/edit.gif" alt="" /></a> {/if}
+                {/if}
+            </h4>
+          </div>
+          <div id="collapse_{freeform:entry_id}" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="question">
+                  {freeform:field:message}
+                </div>
+                {if '{freeform:field:answer}'!=''}
+                  <div class="media">
+                    <a class="pull-left" href="#">
+                      <img class="media-object" src="img/logo.jpg" alt="...">
+                    </a>
+                    <div class="media-body">
+                      <b>Ответ:</b><br>
+                      {freeform:field:answer}
+                    </div>
+                  </div>
+                {/if}
+            </div>
+          </div>
+        </div>
+        {/exp:freeform:entries}
+      </div>
+
+      <hr/>
+      <h2>Написать отзыв</h2>
+
+      {exp:freeform:form form:class="form-horizontal" form:role="form" form_name="{segment_1}" required="name|email|message" return="{segment_1}/send" error_page="contacts" inline_errors="yes"
+inline_error_return="contacts" require_captcha="no" require_ip="yes"}
+
+        <input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
+
+        <div class="form-group {if freeform:error:name}has-error{/if}">
+          <div class="col-xs-4 dotted">
+            <label for="name" class="control-label">Ваше имя:</label>
+          </div>
+          <div class="col-xs-8">
+            {freeform:field:name attr:id="name" attr:class="form-control" attr:placeholder="Ваше имя" attr:required="required"}
+            {if freeform:error:name}
+              <p class="help-block">{freeform:error:name}</p>
+            {/if}
+          </div>
+        </div>
+
+        <div class="form-group {if freeform:error:email}has-error{/if}">
+          <div class="col-xs-4 dotted">
+            <label for="email" class="control-label">Email:</label>
+          </div>
+          <div class="col-xs-8">
+            {freeform:field:email attr:id="email" attr:class="form-control" attr:placeholder="Email" attr:required="required"}
+            {if freeform:error:email}
+              <p class="help-block">{freeform:error:email}</p>
+            {/if}
+          </div>
+        </div>
+
+        <div class="form-group {if freeform:error:message}has-error{/if}">
+          <div class="col-xs-4 dotted">
+            <label for="message" class="control-label">Отзыв:</label>
+          </div>
+          <div class="col-xs-8">
+            {freeform:field:message attr:id="message" attr:cols="100" attr:rows="5" attr:class="form-control" attr:required="required"}
+            {if freeform:error:message}
+              <p class="help-block">{freeform:error:message}</p>
+            {/if}
+          </div>
+        </div>
+
+        <div class="form-group hidden">
+          <div class="col-xs-4 dotted">
+            <label for="message" class="control-label">Age:</label>
+          </div>
+          <div class="col-xs-8">
+            <input type="text" name="age" placeholder="age">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-xs-offset-8 col-xs-4">
+            <button type="submit" class="btn btn-warning pull-right">Отправить</button>
+          </div>
+        </div>
+
+      {/exp:freeform:form}
+</div>
+</div>

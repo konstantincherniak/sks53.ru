@@ -1,0 +1,76 @@
+<!-- header -->
+<div class="headers">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <a href="{site_url}" class="logo"><img src="/img/logo.png" alt=""></a>
+      </div>
+      <div class="col-xs-6">
+        <p class="top-nr-grand">
+          {exp:low_variables:parse var="contact_phones" limit="1"}
+            {cell_1}<span>{cell_2}</span>
+          {/exp:low_variables:parse}
+          <a href="#" class="btn btn-warning"  data-toggle="modal" data-target="#callbackModalW">ОБРАТНЫЙ ЗВОНОК</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- navigation -->
+<section class="s-nav">
+    <div class="container container-nav">
+        <nav class="nav">
+            <ul>
+{!--                <li class="dropdown">
+                    <a href="#" id="dLabel" data-target="#" href="/acations" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">Акции <span class="caret"></span></a>
+                    <ul class="dropdown-menu ul-hide" role="menu" aria-labelledby="dLabel">
+                      {exp:channel:entries channel="actions" disable="categories|category_fields|member_data|pagination" limit="10" dynamic="no"}
+                        <li><a href="{url_title_path='actions'}">{title}</a></li>
+                      {/exp:channel:entries}
+                    </ul>
+                </li>
+--}
+                {exp:navee:custom nav_title="main-nav" wrap_type="none" class="nav" max_depth="2" parent_selected_class="active" selected_class="actv" selected_class_on_parents="true"}
+                   <li class="{class}{if has_kids} dropdown{/if}">
+                     <a href="{link}" {if target != ''}target="{target}"{/if} {if has_kids} class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"{/if}>{text}{if has_kids} <span class="caret"></span>{/if}</a>
+                      {if has_kids}
+                      <ul class="dropdown-menu ul-hide" role="menu" >
+                        {kids}
+                      </ul>
+                      {/if}
+                   </li>
+                {/exp:navee:custom}
+            </ul>
+        </nav>
+    </div>
+</section>
+<!-- /navigation -->
+{if segment_1 ==""}
+{exp:low_variables:parse var="header_var" limit="1"}
+<header class="header-top"  style="background: url({header_back}) no-repeat center;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                      <div class="nr-home">
+                      {exp:playa:children field="header_playa_item" status="open" disable="members" limit="1"}
+                            <a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}">{title}</a><br>
+                            {compl limit="1"}
+                            <span>{exp:number_format number="{cell_3}" dec_point=" " thousands_sep=" "}  <i class="fa fa-rub"></i></span>
+                            {/compl}
+                      {/exp:playa:children}
+                      </div>
+                      <div class="nr-home-grand">
+                          <img src="{header_counter}" alt="">
+                          <p><strong>ДОМОВ ПОСТРОЕНО</strong></p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{/exp:low_variables:parse}
+{/if}
+<!-- /header -->

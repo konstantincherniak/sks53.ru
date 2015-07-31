@@ -1,0 +1,151 @@
+{layout="layouts/.base"}
+
+
+{if segment_2 == ''}
+
+{layout:set name="title" value="Каталог проектов"}
+{layout:set name="description" value=""}
+{layout:set name="keywords" value=""}
+
+{if:else}
+
+    	{layout:set name="channel" value="Проекты домов и бань"}
+    	{layout:set name="channel_link" value="/catalog"}
+    	{layout:set name="title" value="{segment_2_category_name_full}"}
+        {layout:set name="description" value="{segment_2_meta_keywords}"}
+        {layout:set name="keywords" value="{segment_2_meta_description}"}
+
+    	{layout:set name="canonical_url" value="{homepage}catalog/{segment_2}"}
+
+{/if}
+
+
+<section class="s-container s-nav-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="/">Главная</a>  
+                <i class="icon icon-navigation"></i>
+                {if segment_2_category_name != ''} 
+                <a href="/catalog">Каталог</a>
+                <i class="icon icon-navigation"></i>
+                <a href="/catalog/{segment_2}" class="static-a">{segment_2_category_name}</a>
+                {if:else}
+                <a href="/catalog" class="static-a">Каталог</a>
+                {/if}              
+            </div>
+        </div>
+    </div>
+    <hr>
+</section>
+
+
+          {if '{segment_2_category_name}' != ''}
+<section class="s-container catalg-page">
+    <div class="container s-slider">     
+     {embed="inc/.slider"}     
+              <h1 class="text-center">{segment_2_category_name}</h1>
+             <p> {segment_2_category_description} </p>
+{exp:channel:entries channel="catalog" category="{segment_2_category_id}" limit="9" orderby="date" sort="asc" disable="member_data|trackbacks"}
+
+        {if count %3== '1'}<div class="row cat-gall">{/if}
+      <div class="col-xs-4">
+        <div class="col-xs-12">
+          <div class="bord-cat">
+            <a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}" >
+            {pic limit="1"}
+            {exp:ce_img:pair src="{url}" {wm_pic} crop="yes" width="282" height="230" cache="yes" refresh="60"}
+            <img src="{made}" >
+            {/exp:ce_img:pair}
+            {/pic}
+            <p class="bord-solid"><strong>{title}</strong> {size} м, {space} м<sup>2</sup></p>
+            {compl limit="2"}
+            <p class="ads-dd{if row_count != total_rows} bord-dashed{/if}">
+              <small>{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}:</small>
+              {if label == 'Акция'}<span class="small-price">{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>{/if}
+              {exp:number_format number="{cell_3}" dec_point=" " thousands_sep=" "}
+              <i class="fa fa-rub"></i>
+            </p>
+            {/compl}
+
+            {if label == 'Новинка'}
+            <i class="sale news"></i>
+            {/if}
+            {!--if label == 'Хит'}
+            <i class="sale"></i>
+            {/if--}
+            {if label == 'Акция'}
+            <i class="sale"></i>
+            {/if}
+            </a>
+          </div>
+        </div>
+      </div>
+
+        {if count == total_results || count % 3 == 0}
+          </div>
+        {/if}
+
+        {if no_results}
+          <div class="alert alert-warning">Проекты не найдены</div>
+        {/if}
+
+        {paginate}
+          {pagination_links}
+    <div class="row navigation-gallery">
+        <div class="col-xs-12">
+            <div class="c-nav">
+                <ul>
+                  {previous_page}
+                    <li><a href="{pagination_url}" ><i class="icon icon-prev"></i></a></li>
+                  {/previous_page}
+                  {page}
+                    <li><a href="{pagination_url}" {if current_page}class="actv-nav"{/if}>{pagination_page_number}</a></li>
+                  {/page}
+                 {next_page}
+                    <li><a href="{pagination_url}"><i class="icon icon-next"></i></a></li>                    
+                  {/next_page}
+                 </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+          {/pagination_links}
+        {/paginate}
+
+{/exp:channel:entries}
+
+      </div>
+</section>
+
+          {if:else}
+<section class="s-container catalg-page">
+    <div class="container s-slider">
+              <h1 class="text-center">Каталог проектов</h1>
+
+               <div class="row">
+			   {exp:channel:categories style="linear" category_group="1"}
+                <div class="col-xs-6 blue-cat">
+                  <div class="img-catalq" style="width: 402px;height: 326px;">
+                    <a href="/catalog/{category_url_title}">
+                    {exp:ce_img:pair src="{category_image}" crop="yes" width="402" height="326" cache="yes" refresh="60"}
+                    <img src="{made}" >
+                    {/exp:ce_img:pair}
+                    </a>
+                  </div>
+                  <div class="bot-cat" style="width: 402px;">
+                      <div class="nm-catalq">
+                        <h2><a href="/catalog/{category_url_title}">
+                          {category_name}
+                        </a></h2>
+                      </div>
+                      <div class="cq-4">
+                          <a href="/catalog/{category_url_title}" class="link-center">Все проекты {exp:catcount cat_id='{category_id}' status='open'} шт.</a>
+                      </div>
+                  </div>
+                </div>
+			 {/exp:channel:categories}
+                </div>
+   </div>
+</section>
+          {/if}

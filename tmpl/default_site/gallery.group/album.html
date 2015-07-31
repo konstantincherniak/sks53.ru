@@ -1,0 +1,71 @@
+{layout="layouts/.base"}
+
+{exp:channel:entries channel="gallery" limit="1" require_entry="yes"}
+
+  {if no_results}
+    {redirect='404'}
+  {/if}
+
+  {layout:set name="title" value="{title} / {categories}{category_name}{/categories} / Фотогалерея"}
+
+<section class="s-container s-nav-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="{site_url}">Главная</a>
+                <i class="icon icon-navigation"></i>
+                <a href="/gallery">Наши работы</a>
+                <i class="icon icon-navigation"></i>
+                <a href="/gallery/album/{url_title}" class="static-a">{title}</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+</section>
+
+<section class="s-container gallery-page projects-page">
+  <div class="container">
+    <div class="row">
+      <div class="cc-content">
+        <h1 class="text-center">{title} {edit_link}</h1>
+        {content}
+        {gallery}
+        {if {image:count} %3 == "1"}
+        <div class="row gly">
+        {/if}
+          <div class="col-xs-4">
+              <a href="{exp:ce_img:pair src="{image:url}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  class="fancybox" rel="example_group"  title="{image:title}">
+                <img src="{image:url:small}" class="example-image" alt="{image:title}">
+                <span class="borb-botom">
+                    <p>
+                        {image:title}                   
+                    </p>
+                </span>  
+              </a>
+          </div>
+        {if {image:count} %3 == "0" || {image:count} == {image:total} }
+        </div>
+        {/if}
+        {/gallery}
+      </div>
+    </div>
+  </div>
+</section>
+{/exp:channel:entries}
+      <script type="text/javascript">
+      $(document).ready(function() {
+        $(".fancybox").fancybox({
+          prevEffect  : 'none',
+          nextEffect  : 'none',
+          helpers : {
+            title : {
+              type: 'outside'
+            },
+            thumbs  : {
+              width : 50,
+              height  : 50
+            }
+          }
+        });
+      });
+      </script>

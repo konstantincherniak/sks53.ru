@@ -1,0 +1,35 @@
+{layout="layouts/.base" title="Наши работы"}
+
+{if segment_2 != ''}
+  {redirect='404'}
+{/if}
+
+
+
+<section class="s-container s-nav-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="/">Главная</a>  
+                <i class="icon icon-navigation"></i>
+                <a href="/gallery" class="static-a">Наши работы</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+</section>
+
+<section class="s-container gallery-page projects-page">
+  <div class="container">
+    <div class="row">
+      <div class="cc-content">
+        <h1 class="text-center">Наши работы</h1>
+        {exp:channel:categories show_empty="no" channel="gallery" style="linear"}
+        <h2>{category_name}</h2>
+        {embed="inc/.gall-cat" catid="{category_id}"}
+        {/exp:channel:categories}
+
+      </div>
+    </div>
+  </div>
+</section>

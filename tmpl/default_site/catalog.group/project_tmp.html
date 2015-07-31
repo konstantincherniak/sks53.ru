@@ -1,0 +1,518 @@
+{layout="layouts/.base"}
+
+{exp:channel:entries channel="catalog" url_title="{segment:url_title}" limit="1" cache="no" refresh="60" view_count="one" parse="inward"}
+{layout:set name="title" value="{title} / {categories}{category_name}{/categories} / Каталог"}
+  {if no_results}
+    {redirect='404'}
+  {/if}
+
+<section class="s-container s-nav-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="{site_url}">Главная</a>
+                <i class="icon icon-navigation"></i>
+                <a href="/catalog">Каталог</a>
+                <i class="icon icon-navigation"></i>
+                {categories}
+                <a href="/catalog/{category_url_title}">{category_name}</a>
+                <i class="icon icon-navigation"></i>                
+                {/categories}
+                <a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}" class="static-a">{title}</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+</section>
+<section class="s-container gallery-page projects-page">
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1>Проект {categories}{category_name}{/categories} {title} {size} М {edit_link}</h1>
+          </div>
+      <div class="col-xs-8">
+        <div class="slider-gallery">
+          <div class="connected-carousels">
+            <div class="stage">
+              <div class="carousel carousel-stage" data-jcarousel="true">
+                <ul>
+
+                  {pic}
+                  <li>
+                    <a href="{exp:ce_img:pair src="{url}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" class="fancybox" rel="example_group">
+                      <img src="{exp:ce_img:pair src="{url}" width="620" height="444" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  width="620" alt="">
+                    </a>
+                  </li>
+                  {/pic}
+                  {if gallery_entry}
+                    {gallery_entry show_expired="yes" limit="2"}
+                        {exp:channel_images:images entry_id="{entry_id}" limit="16" sort="asc"}
+                          <li>
+                            <a href="{exp:ce_img:pair src="{image:url:large}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" class="fancybox" rel="example_group">
+                            <img src="{exp:ce_img:pair src="{image:url:large}" width="620" height="444" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" alt="">
+                            </a>
+                          </li>
+                        {/exp:channel_images:images}
+                    {/gallery_entry}
+                  {/if}
+
+                </ul>
+              </div>
+              {if {pic:total_files} > '1' OR gallery_entry!=''}
+              <a href="#" class="prev prev-stage" data-jcarouselcontrol="true"><span>‹</span></a>
+              <a href="#" class="next next-stage" data-jcarouselcontrol="true"><span>›</span></a>
+              {/if}
+            </div>
+          
+            {if {pic:total_files} > '1' OR gallery_entry!=''}
+            <div class="navigation">
+                <a href="#" class="prev prev-navigation inactive" data-jcarouselcontrol="true">‹</a>
+                <a href="#" class="next next-navigation" data-jcarouselcontrol="true">›</a>
+                <div class="carousel carousel-navigation" data-jcarousel="true">
+                    <ul style="left: 0px; top: 0px;">
+                      {pic}
+                      <li data-jcarouselcontrol="true">
+                         <img src="{exp:ce_img:pair src="{url}" width="74" height="54" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  alt="">
+                      </li>
+                      {/pic}
+        
+                      {if gallery_entry}
+                      {gallery_entry show_expired="yes" limit="2"}
+                        {exp:channel_images:images entry_id="{entry_id}" limit="16" sort="asc"}
+                          <li>
+                            <img src="{exp:ce_img:pair src='{image:url:large}' width='74' height='54' allow_scale_larger='yes' crop='yes' cache='yes' refresh='60'}{made}{/exp:ce_img:pair}" alt="">
+                          </li>
+                        {/exp:channel_images:images}
+                      {/gallery_entry}
+                      {/if}
+
+                    </ul>
+                </div>
+            </div>      
+            {/if}
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-4">
+        <div class="hed-right-el">
+      {compl limit="2"}
+          <p>
+            Цена сруба «{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}»
+          </p>
+          <div class="price-el">
+              <p>
+                {if label == 'Акция'}<span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>{/if}
+                {exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "}
+              </p>
+          </div>
+        {/compl}
+        <a href="#" class="btn btn-warning btn-lg">Оставить заявку</a>
+        <ul>
+            <li>
+                <strong>Планировка:</strong>
+                {plans limit="1"}
+                <a href="{url}" class="fancybox" rel="example_group">
+                  {exp:ce_img:single src="{url}" width='293' allow_scale_larger='yes' crop='no' cache='yes' refresh='60'}
+                </a>
+                {/plans}
+            </li>
+            <li><strong>Размер:</strong> {size} м</li>
+            <li><strong>Площадь:</strong> {space} м2</li>
+            <li><strong>Этажность:</strong> {floors:label}</li>
+            <li><strong>Срок строительства:</strong> {srok} дней</li>
+        </ul>
+        </div>
+     
+      </div>
+    </div>
+  </div>
+</section>
+<section class="s-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 s-slider">
+                {embed="inc/.slider"} 
+                <div class="project-s-footer">
+                    <div class="row">
+                        <div class="col-xs-12 ">
+                            <div class="row">
+                                <div class="col-xs-12 form-project">
+                                    <div class="row">
+                                        <div class="bagck">
+                                            {exp:freeform:form
+                                              form:id="orderFormSmall"
+                                              form:role="form"
+                                              form_id="7"
+                                              required="name|phone"
+                                              require_captcha="no"
+                                              require_ip="yes"
+                                            }
+                                            <input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
+                                            <input type="hidden" name="forma_kakaya" value="Заявка по акции">
+                                            <input type="hidden" name="url" value="{current_url}">
+                                            <input type="hidden" name="project" value="{title}">
+                                            <input type="hidden" name="eid" value="{entry_id}">
+                                            <input type="hidden" name="extra_options" value="">
+                                            <div id="general_errors_orderFormSmall"></div>
+                                            <h2>Оставьте заявку по акции</h2>
+                                                <div class="col-xs-4">
+                                                    <label>
+                                                        <i class="icon icon-people"></i>
+                                                        <input type="text" class="form-control" name="name" placeholder="Ваше имя">
+                                                        <div class="error_message"></div>
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <label>
+                                                        <i class="icon icon-phone"></i>
+                                                        <input type="text" class="form-control" name="phone" placeholder="Ваш телефон">
+                                                        <div class="error_message"></div>
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-4 from-bottom">
+                                                    <button class="btn btn-warning btn-block"><i class="fa fa-paper-plane"></i> Оставить заявку</button>
+                                                </div>
+                                            {/exp:freeform:form}
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-project">
+                    <h2>Комплектация</h2>
+                    <table>
+                      <tr>
+                        <th>Цена</th>
+                        {compl limit="2"}
+                        <th>{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}</th>
+                         {/compl}
+                      </tr>
+                      <tr>
+                        <td></td>
+                        {compl limit="2"}
+                        <td>
+                            <div class="price-el">
+                                <p>{if label == 'Акция'}<span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>{/if} {exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i></p>
+                            </div>
+                        </td>
+                       {/compl}
+
+ 
+                      </tr>
+                    </table>
+                    <div class="hed-right-el img-descr">
+                        <p>Фундамент</p>
+                        <img src="/img/project-table.jpg" alt="">
+                        <ul>
+                            <li>Наружные стены каркаса из бруса сечением 150x50мм</li>
+                            <li>Внутренние перегородки из бруса сечением   100x50мм</li>
+                            <li>Перекрытия из бруса сечением 200х50мм</li>
+                        </ul>
+                        <ul>
+                            <li>Винтовые сваи на глубину замерзания   D-108 мм, L-2.5 м</li>
+                            <li>Бетон сертифицированный М-300 В-22,5</li>
+                            <li>Наружные стены каркаса из бруса сечением</li>
+                            <li>Внутренние перегородки из бруса сечением   100x50мм</li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="hed-right-el img-descr">
+                        <p>Фундамент</p>
+                        <img src="/img/project-table2.jpg" alt="">
+                        <ul>
+                            <li>Наружные стены каркаса из бруса сечением 150x50мм</li>
+                            <li>Внутренние перегородки из бруса сечением   100x50мм</li>
+                            <li>Перекрытия из бруса сечением 200х50мм</li>
+                        </ul>
+                        <ul>
+                            <li>Винтовые сваи на глубину замерзания   D-108 мм, L-2.5 м</li>
+                            <li>Бетон сертифицированный М-300 В-22,5</li>
+                            <li>Наружные стены каркаса из бруса сечением</li>
+                            <li>Внутренние перегородки из бруса сечением   100x50мм</li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="hed-right-el img-descr">
+                        <p>Фундамент</p>
+                        <img src="/img/project-table3.jpg" alt="">
+                        <ul>
+                            <li>Наружные стены каркаса из бруса сечением 150x50мм</li>
+                            <li>Внутренние перегородки из бруса сечением   100x50мм</li>
+                            <li>Перекрытия из бруса сечением 200х50мм</li>
+                        </ul>
+                        <ul>
+                            <li>Винтовые сваи на глубину замерзания   D-108 мм, L-2.5 м</li>
+                            <li>Бетон сертифицированный М-300 В-22,5</li>
+                            <li>Наружные стены каркаса из бруса сечением</li>
+                            <li>Внутренние перегородки из бруса сечением   100x50мм</li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="hed-right-el img-descr">
+                        <p>Фундамент</p>
+                        <img src="/img/project-table4.jpg" alt="">
+                        <ul>
+                            <li>Наружные стены каркаса из бруса сечением 150x50мм</li>
+                            <li>Внутренние перегородки из бруса сечением   100x50мм</li>
+                            <li>Перекрытия из бруса сечением 200х50мм</li>
+                        </ul>
+                        <ul>
+                            <li>Винтовые сваи на глубину замерзания   D-108 мм, L-2.5 м</li>
+                            <li>Бетон сертифицированный М-300 В-22,5</li>
+                            <li>Наружные стены каркаса из бруса сечением</li>
+                            <li>Внутренние перегородки из бруса сечением   100x50мм</li>
+                        </ul>
+                        <div class="clear"></div>
+                        <hr>
+                    </div>
+                    <div class="proj-bottom">
+                        <a href="#" class="btn btn-warning btn-lg">Оставить заявку</a>
+                        <h2>Похожие проекты размером 6х9 м</h2>
+                        <div class="slider1">
+                            <div class="slide">
+                                <a href="/img/image-gallery-slider.jpg" class="fancybox" >
+                                    <span class="zoom">
+                                        <img class="example-image" src="/img/slider-mediu-img.jpg" alt=""/>
+                                          <span class="zm"></span>
+                                        <span class="borb-botom">
+                                            <p>
+                                                <span>«Волга» 6х9 м</span><br>
+                                                В деревне Малышево
+                                            </p>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="slide">
+                                <a href="/img/image-gallery-slider.jpg" class="fancybox">
+                                    <span class="zoom">
+                                        <img class="example-image" src="/img/slider-mediu-img.jpg" alt=""/>
+                                          <span class="zm"></span>
+                                        <span class="borb-botom">
+                                            <p>
+                                                <span>«Волга» 6х9 м</span><br>
+                                                В деревне Малышево
+                                            </p>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="slide">
+                                <a href="/img/image-gallery-slider.jpg" class="fancybox" >
+                                    <span class="zoom">
+                                        <img class="example-image" src="/img/slider-mediu-img.jpg" alt=""/>
+                                          <span class="zm"></span>
+                                        <span class="borb-botom">
+                                            <p>
+                                                <span>«Волга» 6х9 м</span><br>
+                                                В деревне Малышево
+                                            </p>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="slide">
+                                <a href="/img/image-gallery-slider.jpg" class="fancybox" >
+                                    <span class="zoom">
+                                        <img class="example-image" src="/img/slider-mediu-img.jpg" alt=""/>
+                                          <span class="zm"></span>
+                                        <span class="borb-botom">
+                                            <p>
+                                                <span>«Волга» 6х9 м</span><br>
+                                                В деревне Малышево
+                                            </p>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="slide">
+                                <a href="/img/image-gallery-slider.jpg" class="fancybox" >
+                                    <span class="zoom">
+                                        <img class="example-image" src="/img/slider-mediu-img.jpg" alt=""/>
+                                          <span class="zm"></span>
+                                        <span class="borb-botom">
+                                            <p>
+                                                <span>«Волга» 6х9 м</span><br>
+                                                В деревне Малышево
+                                            </p>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="slide">
+                                <a href="/img/image-gallery-slider.jpg" class="fancybox" >
+                                    <span class="zoom">
+                                        <img class="example-image" src="/img/slider-mediu-img.jpg" alt=""/>
+                                          <span class="zm"></span>
+                                        <span class="borb-botom">
+                                            <p>
+                                                <span>«Волга» 6х9 м</span><br>
+                                                В деревне Малышево
+                                            </p>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="clear"></div>
+
+{!--
+
+<section class="s-section elements-content tabs-project">
+  <div class="container">
+    <div class="row">
+      <h2>Комплектация</h2> <p class="text-center"><em>Нажмите на вкладку, чтобы посмотреть комплектацию</em></p>
+      <div class="col-xs-12">
+        <div role="tabpanel">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist" id="bottomTabList">
+          {compl}
+            <li role="presentation" class="{if row_count=="1"}active{/if} {if label != 'Акция'}padding-top{/if}">
+              <a href="#tab-{row_count}" aria-controls="tab-{row_count}" role="tab" data-toggle="tab" >
+                <span> {cell_1}{exp:low_replace find="Дом |Баня" replace="" multiple="yes"}{title}{/exp:low_replace}{/cell_1}</span>
+                <p>
+                  {if label == 'Акция'}
+                  <bdi>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i></bdi>
+                  <br>
+                  {if:else}
+                  {/if}
+                  {exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i>
+                </p>
+              </a>
+            </li>
+          {/compl}
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+          {compl}
+            <div role="tabpanel" class="tab-pane fade {if row_count=="1"}in active{/if}" id="tab-{row_count}">
+              {if label == 'Акция'}
+              <div class="header-form">
+                <div class="hed-from">
+                  <p>Скидка <span>{label_percent}%</span> – экономия при заказе <b style="text-transform: lowercase">{exp:low_replace find="Дом|Баня" replace="дома|бани" multiple="yes"}{cell_1}{title}{/cell_1}{/exp:low_replace}</b> сейчас
+                  <span>{exp:math formula="[1]*100 / ( 100 - [2]) - [1]"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>
+                  <i class="fa fa-rub"></i></p>
+                </div>
+                <div class="content-from">
+                  <img src="/img/from-content.png" alt="">
+                  <h4>ЗАКАЗАТЬ ПО АКЦИИ</h4>
+                  {exp:freeform:form
+        form:id="orderFormSmall-{row_count}"
+        form:role="form"
+        form_id="7"
+        required="name|phone"
+        require_captcha="no"
+        require_ip="yes"
+      }
+            <input type="hidden" name="url" value="{current_url}">
+            <input type="hidden" name="forma_kakaya" value="Заказ по акции">
+            <input type="hidden" name="geo" value="{exp:ee_geo:city}{region_name}, {city}{/exp:ee_geo:city}">
+            <input type="hidden" name="project" value="{title}">
+            <input type="hidden" name="complectation" value="{cell_1}{title}{/cell_1}">
+              <div id="general_errors_orderFormSmall-{row_count}"></div>
+
+                    <div class="col-xs-4">
+                      <input type="text" class="form-control t-input" name="name" placeholder="Ваше имя">
+                      <div class="error_message"></div>
+                    </div>
+                    <div class="col-xs-4">
+                      <input type="text" class="form-control t-input nr-input" name="phone" placeholder="Ваш телефон">
+                      <div class="error_message"></div>
+                    </div>
+                    <div class="col-xs-4">
+                      <button class="btn btn-header" onclick="yaCounter29450600.reachGoal('button');ga('send', 'event', 'button', 'push', 'Заказать по акции');"><span>Заказать по акции</span></button>
+                    </div>
+                 {/exp:freeform:form}
+                </div>
+              </div>
+              {/if}
+              <div class="cont-project elements-content">
+                {cell_1}
+                    {complectation_matrix}
+                      <div class="row">
+                        {cell_2}
+                        {exp:ce_img:pair src="{url}" width="204" height="160" crop="yes" cache="yes" refresh="60"}
+                        <span class="col-xs-2"><img src="{made}" alt=""></span>
+                        {/exp:ce_img:pair}
+                        {/cell_2}
+                        <div class="col-xs-10">
+                        <h3>{cell_1}</h3>{cell_3}</div>
+                      </div>
+                    {/complectation_matrix}
+                  {/cell_1}
+              </div>
+              <div class="clearfix"></div>
+                  <div class="row">
+                  {if label == 'Акция'}
+                    <div class="partent-proj">
+                      <div class="col-xs-6 ons-proj">
+                        <p>Старая цена: <span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i></span></p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p>Цена сейчас: <span>{exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i></span></p>
+                      </div>
+                    </div>
+                    {if:else}
+                    <div class="partent-proj">
+                      <div class="col-xs-12 text-center">
+                        <p>Цена сейчас: <span>{exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i></span></p>
+                      </div>
+                    </div>
+                    {/if}
+                    <div class="clear"></div>
+      <div class="row">
+        <div class="col-xs-3 col-xs-offset-3" style="margin-top: 10px;">
+          <div class="col-xs-5">
+            <p><img width="60" src="/img/icons/3.png" alt=""> </p>
+          </div>
+          <div class="col-xs-7">
+            <b>Работаем&nbsp;с материнским капиталом</b>
+          </div>
+        </div>
+        <div class="col-xs-3" style="margin-top: 10px;">
+          <div class="col-xs-5">
+            <p><img width="60" src="/img/icons/2.png" alt=""></p>
+          </div>
+          <div class="col-xs-7">
+           <b>Строим в кредит</b>
+          </div>
+        </div>
+      </div>
+                    <div class="send-proj">
+                      <a href="#divorderFormSmall" class="btn btn-header" id="buttonOrderBottom"><span>Оформить заказ</span></a>
+                    </div>
+                  </div>
+            </div>
+          {/compl}
+          </div>
+
+
+        </div>
+    </div>
+  </div>
+</div>
+</section>
+--}
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $(".fancybox-thumb").fancybox();
+          });
+        </script>
+
+{/exp:channel:entries}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+<url>
+	<loc>http://der-dom.com/catalog/</loc>
+	<lastmod>{current_time format="%Y-%m-%d"}</lastmod>
+	<changefreq>always</changefreq>
+	<priority>1.0</priority>
+</url>
+
+{exp:channel:categories
+	disable="category_fields"
+	show_empty="no"
+	style="linear"
+	channel="catalog"
+}
+<url>
+	<loc>http://der-dom.com/catalog/{category_url_title}</loc>
+	<changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+{/exp:channel:categories}
+
+<url>
+	<loc>http://der-dom.com/articles/</loc>
+	<lastmod>{current_time format="%Y-%m-%d"}</lastmod>
+	<changefreq>always</changefreq>
+	<priority>1.0</priority>
+</url>
+
+<url>
+	<loc>http://der-dom.com/gallery/</loc>
+	<lastmod>{current_time format="%Y-%m-%d"}</lastmod>
+	<changefreq>always</changefreq>
+	<priority>1.0</priority>
+</url>
+
+{exp:channel:entries channel="catalog" sort="asc" orderby="date"  paginate="bottom" disable="member_data|trackbacks"}
+<url>
+<loc>http://der-dom.com/catalog/{categories}{category_url_title}/{/categories}{url_title}</loc>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+{/exp:channel:entries}
+
+
+{exp:channel:entries channel="gallery" sort="asc" orderby="date"  paginate="bottom" disable="member_data|trackbacks"}
+<url>
+<loc>http://der-dom.com/gallery/album/{url_title}</loc>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+{/exp:channel:entries}
+
+
+{exp:nsm_better_meta:entries_xml
+	loc="http://der-dom.com/articles/{url_title}"
+	status="not closed"
+	channel="articles"
+}
+
+
+{exp:nsm_better_meta:entries_xml
+	loc=""
+	status="not closed"
+	channel="static"
+}
+</urlset>

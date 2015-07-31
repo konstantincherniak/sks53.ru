@@ -1,0 +1,57 @@
+{layout="layouts/.base"}
+
+{layout:set name="title" value="Расчет стоимости доставки"}
+<section class="s-container s-nav-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <a href="{site_url}">Главная</a>
+          <i class="icon icon-navigation"></i>
+          <a class="static-a" href="/distance">Расчет стоимости доставки</a>
+        </div>
+      </div>
+    </div>
+  <hr>
+</section>
+
+
+
+<section class="s-container elements-m table-main table-section last-mod">
+    <div class="container">
+        <div class="row">
+            <div class="cc-content">
+      <h1>Расчет стоимости доставки</h1>
+
+        <div class="">
+
+                                <div class="">
+                                    <div class="row begin-form">
+                                        <div class="col-xs-6  col-input">
+                                        <form id="formDelivery" >
+                                            <input type="text" class="t-input" id="searchTextField" size="35" value="" data-deliveryprice="75" data-distancestart="500"   placeholder="Введите город доставки">
+                                            <input type="hidden" class="t-input" id="deliveryprice" value="75" >
+                                            <input type="hidden" class="t-input" id="distancestart" value="500" >
+                                            <input type="hidden" class="t-input" id="searchTextField_from" value="Россия, Новгородская область, Пестово" >
+
+                                        </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+        </div>  
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="map_canvas" style="height:400px;width:880px; display:none;"></div>
+        <div id="messages"></div><div class="price_delivery" id="distance"></div>
+      </div>
+    </div>
+
+
+  
+  
+   
+  </div>
+</section>

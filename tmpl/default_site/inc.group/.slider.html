@@ -1,0 +1,20 @@
+      <div class="sv-slider">
+            <ul class="bxslider">
+{exp:channel:entries channel="actions" disable="categories|category_fields|member_data" cache="no" refresh="60" limit="5" dynamic="no"}
+            <li>
+                
+                    {assets limit="1"}
+                    {exp:ce_img:pair src="{url}" crop="yes" width="940" height="160" cache="yes" refresh="60"}
+                    <img src="{made}" >
+                    {/exp:ce_img:pair}
+                    {/assets}
+                    
+                    <div class="content-img">
+            
+                        <a href="{url_title_path='actions'}">Подробнее об акции</a>
+                    </div>
+
+              </li>
+{/exp:channel:entries}            
+            </ul>
+          </div>

@@ -1,0 +1,19 @@
+          {exp:channel:entries channel="catalog" search:size="{embed:size}" limit="99" dynamic="no"}
+          <div class="slide">
+              <a href="/img/image-gallery-slider.jpg" class="fancybox" >
+                  <span class="zoom">
+                      {pic limit="1"}
+                      {exp:ce_img:pair src="{url}" {wm_pic} crop="yes" width="293" height="220" cache="yes" refresh="60"}
+                       <img class="example-image" src="{made}" alt=""/>
+                      {/exp:ce_img:pair}
+                      {/pic}
+                        <span class="zm"></span>
+                      <span class="borb-botom">
+                          <p>
+                              <span>{title} {size} м</span><br>
+                          </p>
+                      </span>
+                  </span>
+              </a>
+          </div>
+          {/exp:channel:entries}
