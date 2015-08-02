@@ -1741,6 +1741,13 @@ a.active > div > .hover-preview-image {
     padding: 0 30px;
     position: relative;
 }
+
+.modal-body .text-danger {
+    color: #a94442;
+    font-size: 10px;
+    margin-bottom: 0;
+    position: absolute;
+}
 .title-table {
     background: #81c341 none repeat scroll 0 0;
     color: #222222;
