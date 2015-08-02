@@ -540,7 +540,7 @@ del {
 .galery > .bx-wrapper + .bx-wrapper > .bx-viewport {
     width: 173px !important;
 }
-.galery > div > div > div > .bx-prev.disabled {
+.galery > div > div > div > .bx-prev.disabled, .galery > div > div > div > .bx-prev {
     background: rgba(0, 0, 0, 0) url("../i/arrow-vertical.png") no-repeat scroll 0 0px;
     display: block;
     margin-top: 315px;
@@ -555,7 +555,7 @@ del {
     -o-transform: rotate(180deg); 
     transform: rotate(180deg);
 }
-.galery > div > div > div > .bx-prev.disabled:hover {
+.galery > div > div > div > .bx-prev.disabled:hover, .galery > div > div > div > .bx-prev:hover {
     background: rgba(0, 0, 0, 0) url("../i/arrow-vertical.png") no-repeat scroll 0 -20px;
     -moz-transform: rotate(0deg); 
     -ms-transform: rotate(0deg); 
@@ -563,7 +563,7 @@ del {
     -o-transform: rotate(0deg); 
     transform: rotate(0deg);
 }
-.galery > div > div > div > .bx-next.disabled {
+.galery > div > div > div > .bx-next.disabled, .galery > div > div > div > .bx-next {
     background: rgba(0, 0, 0, 0) url("../i/arrow-vertical.png") no-repeat scroll 0 0;
     display: block;    
     padding: 0 10px;
@@ -571,7 +571,7 @@ del {
     right: 83px;
     text-indent: -9999px;
 }
-.galery > div > div > div > .bx-next.disabled:hover {
+.galery > div > div > div > .bx-next.disabled:hover, .galery > div > div > div > .bx-next:hover {
     background: rgba(0, 0, 0, 0) url("../i/arrow-vertical.png") no-repeat scroll 0 -20px;
     -moz-transform: rotate(180deg); 
     -ms-transform: rotate(180deg); 
