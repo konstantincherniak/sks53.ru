@@ -1,13 +1,7 @@
 {layout="layouts/.base" title="Строительство деревянных домов из бруса" canonical_url='http://komfortstroi53.ru/'}
 {if segment_1!=''}{redirect="404"}{/if}
-<section class="s-container">
-  <div class="container s-slider">
-    {embed="inc/.slider"}
-  </div>
-</section>
-<section class="s-container">
-  <div class="container">
-    <div class="row  main-t">
+
+
       {exp:channel:entries channel="pages" limit="1" entry_id="72" cache="yes" refresh="yes" disable="categories|category_fields|member_data|pagination" dynamic="no"}
       <h1>{title} {edit_link}</h1>
       {content:excerpt}
@@ -33,34 +27,5 @@
           </div>
           {/if}
           {/exp:low_variables:parse}
-    </div>         
-  </div>         
-</section>
-
-<section class="s-container">
-    <div class="container">
-        <h2>Недавние постройки</h2>
-        <div class="slider1">
-            {exp:channel:entries channel="gallery" limit="9" orderby="date" sort="asc" disable="member_data|trackbacks" dynamic="no" }
-            <div class="slide">
-                <a href="img/image-gallery-slider.jpg" class="fancybox" >
-                    <span class="zoom">
-                      {gallery limit="1" cover_only="yes"}
-                      {exp:ce_img:pair src="{image:url:small}"   allow_scale_larger="yes" crop="yes" width="293" height="220" cache="yes" refresh="60"}
-                      <img src="{made}" class="example-image">
-                      {/exp:ce_img:pair}
-                      {/gallery}
-                        <span class="zm"></span>
-                        <span class="borb-botom">
-                            <p>
-                                <span>{title}</span><br>
-                            </p>
-                        </span>
-                    </span>
-                </a>
-            </div>
-            {/exp:channel:entries}
-        </div>
-    </div>
-</section>
+ 
 <div class="clear"></div>

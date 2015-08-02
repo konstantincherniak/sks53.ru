@@ -20,7 +20,18 @@
 
   <body>
 	{embed="inc/.top"}
-	{layout:contents}
+	<div class="content">
+		<div class="container">
+			<div class ="row">
+				<div class="col-md-8">
+					{layout:contents}
+				</div>
+				<div class="col-md-3">
+					{embed="inc/.right"}
+				</div>
+			</div>
+		</div>
+	</div>
 	{embed="inc/.footer"}
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
