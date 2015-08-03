@@ -1,66 +1,88 @@
 {layout="layouts/.base" title="Строительство деревянных домов из бруса" canonical_url='http://komfortstroi53.ru/'}
 {if segment_1!=''}{redirect="404"}{/if}
-<section class="s-container">
-  <div class="container s-slider">
-    {embed="inc/.slider"}
-  </div>
-</section>
-<section class="s-container">
-  <div class="container">
-    <div class="row  main-t">
-      {exp:channel:entries channel="pages" limit="1" entry_id="72" cache="yes" refresh="yes" disable="categories|category_fields|member_data|pagination" dynamic="no"}
-      <h1>{title} {edit_link}</h1>
-      {content:excerpt}
-      <a href="/about">Читать полностью</a>
-      {/exp:channel:entries}
-      <div class="clearfix"></div>
-      <hr>
-      <h2> Наши преимущества</h2>
-          {exp:low_variables:parse var="index_advantages"}
-          {if row_count == "1" OR row_count == "3"}
-          <div class="col-xs-6 your-work" >
-          {/if}
-            <div class="work-div">
-              {exp:ce_img:pair src="{cell_3}" height="90" allow_scale_larger="yes" cache="yes" refresh="60"}
-              <img src="{made}" >
-              {/exp:ce_img:pair}
-                <h4>{cell_1}</h4>
-                <p>
-                  {cell_2}
-                </p>
-            </div>
-          {if row_count == "2" OR row_count == "4"}
-          </div>
-          {/if}
-          {/exp:low_variables:parse}
-    </div>         
-  </div>         
-</section>
+					<div class = "secret">
+						<div class ="success">
+							<div class="hat"></div>
+							<h1>Секреты успеха</h1>
+						</div>
+						<div class="success-icon">
+						 {exp:low_variables:parse var="index_secrets" limit="8"}
+							{if row_count%2== "1"}
+							<div class="row">
+							{/if}
+								<div class="col-md-6 {cell_2}">
+									<span><span></span></span>
+									<span>{cell_1}</span>
+								</div>
+							{if row_count%2== "0"}								
+							</div>
+							{/if}
+						 {/exp:low_variables:parse}
+						</div>
+					</div>
+                    
+                    
+                    <div class="content-box">
+                        <div class="project">
+                            <a href="/catalog/doma"><div class="project1"></div></a>
+                            <a href="/catalog/bani"><div class="project2"></div></a>
+                            <a href="/catalog/"><div class="project3"></div></a>
+                        </div>
+                        <h1 class="h1">О компании</h1>
+                        {exp:channel:entries channel="pages" limit="1" entry_id="72" cache="yes" refresh="yes" disable="categories|category_fields|member_data|pagination" dynamic="no"}
+                        {content:excerpt}{edit_link}
+                        
+                        <div class="galery">
+                            <div class="title-repeat">НАША СЫРЬЕВАЯ БАЗА И ПРОИЗВОДСТВО</div>
+                            <ul class="bxslider">
+                            {assets}
+                              	<li>
+                              		<a class="fancybox" href="{exp:ce_img:pair src="{url}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" data-fancybox-group="gallery" title="">
+                              		{exp:ce_img:pair src="{url}" {wm_pic} crop="yes" width="460" height="334" cache="yes" refresh="60"}
+            						<img src="{made}" >
+            						{/exp:ce_img:pair}
+                              		</a>
+                              	</li>
+                             {/assets}
+                            </ul>
+                            
+                            <div id="bx-pager">            					
+                            {assets}
+                                    <a data-slide-index="{exp:math formula="[1]-1"  params="{count}"}" href="#">
+                                    	<div class="hover-preview"></div>
+                                    	<div>
+                              				{exp:ce_img:pair src="{url}" {wm_pic} crop="yes" width="157" height="109" cache="yes" refresh="60"}
+                                    		<img src="{made}" />
+            								{/exp:ce_img:pair}
+                                    	</div>
+                                    </a>
+                            {/assets}
 
-<section class="s-container">
-    <div class="container">
-        <h2>Недавние постройки</h2>
-        <div class="slider1">
-            {exp:channel:entries channel="gallery" limit="9" orderby="date" sort="asc" disable="member_data|trackbacks" dynamic="no" }
-            <div class="slide">
-                <a href="img/image-gallery-slider.jpg" class="fancybox" >
-                    <span class="zoom">
-                      {gallery limit="1" cover_only="yes"}
-                      {exp:ce_img:pair src="{image:url:small}"   allow_scale_larger="yes" crop="yes" width="293" height="220" cache="yes" refresh="60"}
-                      <img src="{made}" class="example-image">
-                      {/exp:ce_img:pair}
-                      {/gallery}
-                        <span class="zm"></span>
-                        <span class="borb-botom">
-                            <p>
-                                <span>{title}</span><br>
-                            </p>
-                        </span>
-                    </span>
-                </a>
-            </div>
-            {/exp:channel:entries}
-        </div>
-    </div>
-</section>
-<div class="clear"></div>
+            				</div>                                                                				
+                        
+                        </div>
+                         {content:extended}
+                         {/exp:channel:entries}
+                   
+                       
+                        
+                                                                       
+                        {exp:channel:entries channel="pages" limit="1" entry_id="281" cache="yes" refresh="yes" disable="categories|category_fields|member_data|pagination" dynamic="no"}
+                        <div class="box-repeat">
+                            <div class="title-repeat">{title}</div>
+                            <div class="slider1">
+                            {assets}
+                             	<li>
+                             		<a class="fancybox" href="{exp:ce_img:pair src="{url}" {wm_pic} crop="yes"  cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" data-fancybox-group="gallery" title="">
+                             			<div class="slide">
+                             			{exp:ce_img:pair src="{url}" {wm_pic} crop="yes" width="157" height="109" cache="yes" refresh="60"}
+                             				<img src="{made}">
+                             			{/exp:ce_img:pair}
+                             			</div>
+                             		</a>
+                             	</li>
+                            {/assets}
+                            </div>
+                        </div>
+                        {/exp:channel:entries}
+                    </div>

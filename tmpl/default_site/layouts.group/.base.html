@@ -2,51 +2,63 @@
 <html>
 <head>
    {exp:nsm_better_meta:template
-      {if layout:hide_site_title}hide_site_title="{layout:hide_site_title}"{/if}
-      {if layout:description}description="{layout:description}"{/if}
-      {if layout:keywords}keywords="{layout:keywords}"{/if}
-      {if layout:entry_id}entry_id="{layout:entry_id}"{/if}
-      {if layout:title}title="{layout:title}"{/if}
-      {if layout:canonical_url}canonical_url="{layout:canonical_url}"{/if}
-    }
-<meta name='yandex-verification' content='796a0b017d398274' />
-        <link rel="icon" href="/favic.ico">
-        <link rel="stylesheet" type="text/css" href="/css/libs/reset.css">
-        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/libs/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="/css/libs/stylesheet.css">
-        <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="/css/libs/jquery.bxslider.css">
-        <link rel="stylesheet" type="text/css" href="/css/libs/jquery.fancybox.css" >
-        <link rel="stylesheet" type="text/css" href="/css/libs/ikSelect.css">
-        <link rel="stylesheet" type="text/css" href="/css/libs/polaris.css">
-        <link rel="stylesheet" type="text/css" href="/css/style.css">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.11.1.min.js"><\/script>')</script>
-        <script type="text/javascript" src="/js/libs/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="/js/libs/bootstrap.js"></script>
-        <script type="text/javascript" src="/js/libs/jquery.bxslider.min.js"></script>
-        <script type="text/javascript" src="/js/libs/jquery.fancybox.js"></script>
-        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-        <script type="text/javascript" src="/js/libs/icheck.js"></script>
-        <script type="text/javascript" src="/js/libs/jquery.flexslider.js"></script>
-        <script type="text/javascript" src="/js/libs/jquery.ikSelect.js"></script>
-         <link rel="stylesheet" type="text/css" href="/css/libs/jcarousel.connected-carousels.css">
-        <script type="text/javascript" src="/js/libs/jquery.jcarousel.min.js"></script>
-         <script type="text/javascript" src="/js/libs/jcarousel.connected-carousels.js"></script>
-        {if segment_1 =="distance"}
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
-        <script type="text/javascript" src="/js/googlemaps-api2.js"></script>
-        {/if}
-        <script type="text/javascript" src="/js/main.js"></script>  
-{ga} 
+	  {if layout:hide_site_title}hide_site_title="{layout:hide_site_title}"{/if}
+	  {if layout:description}description="{layout:description}"{/if}
+	  {if layout:keywords}keywords="{layout:keywords}"{/if}
+	  {if layout:entry_id}entry_id="{layout:entry_id}"{/if}
+	  {if layout:title}title="{layout:title}"{/if}
+	  {if layout:canonical_url}canonical_url="{layout:canonical_url}"{/if}
+	}
+	<link rel="shortcut icon" href="/i/favicon.ico">
+	<link rel='stylesheet' href='/css/reset.css' type='text/css' media='all'>
+	<link rel='stylesheet' href='/css/bootstrap.min.css' type='text/css' media='all'>
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel='stylesheet' href='/css/styles.css' type='text/css' media='all'>
+	<link rel="stylesheet" type="text/css" href="/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+	{ga} 
   </head>
 
   <body>
-    {embed="inc/.top"}
-    {layout:contents}
-    {embed="inc/.footer"}
-    
+	{embed="inc/.top"}
+	<div class="content">
+		<div class="container">
+			<div class ="row">
+				<div class="col-md-8">
+					{layout:contents}
+				</div>
+				<div class="col-md-3">
+					{embed="inc/.right"}
+				</div>
+			</div>
+		</div>
+	</div>
+	{embed="inc/.footer"}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/scripts.js"></script>
+	<script src="/js/jquery.bxslider.min.js"></script>
+	<script src="/js/jquery.cycle2.min.js"></script>
+	<script type="text/javascript" src="/source/jquery.fancybox.js?v=2.1.5"></script>
+	
+	<script>
+		$(document).ready(function() {
+			$('.slider1').bxSlider({
+				slideWidth: 156,
+				minSlides: 4,
+				maxSlides: 4,
+				slideMargin: 15
+			});
+			$('.bxslider').bxSlider({
+				pagerCustom: '#bx-pager'
+			});
+			
+			$('#bx-pager').bxSlider({
+				mode: 'vertical',
+				slideWidth: 158,
+				minSlides: 3,
+				slideMargin: 0
+			  });                       
+		});
+	</script>
   </body>
 </html>
