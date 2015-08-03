@@ -3,294 +3,358 @@
 {exp:channel:entries channel="catalog" url_title="{segment:url_title}" limit="1" cache="no" refresh="60" view_count="one" parse="inward"}
 {layout:set name="title" value="{title} / {categories}{category_name}{/categories} / Каталог"}
   {if no_results}
-    {redirect='404'}
+	{redirect='404'}
   {/if}
 
-<section class="s-container s-nav-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <a href="{site_url}">Главная</a>
-                <i class="icon icon-navigation"></i>
-                <a href="/catalog">Каталог</a>
-                <i class="icon icon-navigation"></i>
-                {categories}
-                <a href="/catalog/{category_url_title}">{category_name}</a>
-                <i class="icon icon-navigation"></i>                
-                {/categories}
-                <a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}" class="static-a">{title}</a>
-            </div>
-        </div>
-    </div>
-    <hr>
-</section>
-<section class="s-container gallery-page projects-page">
-    <div class="container">
-        <div class="row">
-          <div class="col-xs-12">
-            <h1>Проект {categories}{category_name}{/categories} {title} {size} М {edit_link}</h1>
-          </div>
-      <div class="col-xs-8">
-        <div class="slider-gallery">
-          <div class="connected-carousels">
-            <div class="stage">
-              <div class="carousel carousel-stage" data-jcarousel="true">
-                <ul>
+{layout:set name="breadcrumbs"}
 
-                  {pic}
-                  <li>
-                    <a href="{exp:ce_img:pair src="{url}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" class="fancybox" rel="example_group">
-                      <img src="{exp:ce_img:pair src="{url}" width="620" height="584" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  width="620" alt="">
-                    </a>
-                  </li>
-                  {/pic}
-                  {!--if gallery_entry}
-                    {gallery_entry show_expired="yes" limit="2"}
-                        {exp:channel_images:images entry_id="{entry_id}" limit="16" sort="asc"}
-                          <li>
-                            <a href="{exp:ce_img:pair src="{image:url:large}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" class="fancybox" rel="example_group">
-                            <img src="{exp:ce_img:pair src="{image:url:large}" width="620" height="584" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" alt="">
-                            </a>
-                          </li>
-                        {/exp:channel_images:images}
-                    {/gallery_entry}
-                  {/if--}
+<a href="/">Главная</a> / 
+<a href="/catalog">Каталог</a> /
+{categories}
+<a href="/catalog/{category_url_title}">{category_name}</a> / 
+{/categories}
+ <span>{title}</span>
+			
+{/layout:set}
 
-                </ul>
-              </div>
-              {if {pic:total_files} > '1' OR gallery_entry!=''}
-              <a href="#" class="prev prev-stage" data-jcarouselcontrol="true"><span>‹</span></a>
-              <a href="#" class="next next-stage" data-jcarouselcontrol="true"><span>›</span></a>
-              {/if}
-            </div>
-
-            {!--if {pic:total_files} > '1' OR gallery_entry!=''} {/if--}
-            <div class="navigation">
-                <a href="#" class="prev prev-navigation inactive" data-jcarouselcontrol="true">‹</a>
-                <a href="#" class="next next-navigation" data-jcarouselcontrol="true">›</a>
-                <div class="carousel carousel-navigation" data-jcarousel="true">
-                    <ul style="left: 0px; top: 0px;">
-                      {pic}
-                      <li data-jcarouselcontrol="true">
-                         <img src="{exp:ce_img:pair src="{url}" width="74" height="54" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  alt="">
-                      </li>
-                      {/pic}
-
-                      {!--if gallery_entry}
-                      {gallery_entry show_expired="yes" limit="2"}
-                        {exp:channel_images:images entry_id="{entry_id}" limit="16" sort="asc"}
-                          <li>
-                            <img src="{exp:ce_img:pair src='{image:url:large}' width='74' height='54' allow_scale_larger='yes' crop='yes' cache='yes' refresh='60'}{made}{/exp:ce_img:pair}" alt="">
-                          </li>
-                        {/exp:channel_images:images}
-                      {/gallery_entry}
-                      {/if--}
-
-                    </ul>
-                </div>
-            </div>
-
-
-
-
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-4">
-        <div class="hed-right-el">
-      {compl limit="2"}
-          <p>
-            Цена «{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}»
-          </p>
-          <div class="price-el">
-              <p>
-                {if label == 'Акция'}<span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>{/if}
-                {exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i>
-              </p>
-          </div>
-        {/compl}
-        <a href="#" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#orderModalW">Оставить заявку</a>
-        <ul>
-            <li>
-                <strong>Планировка:</strong>
-                {plans limit="1"}
-                <a href="{url}" class="fancybox" rel="example_group">
-                  {exp:ce_img:single src="{url}" width='293' allow_scale_larger='yes' crop='no' cache='yes' refresh='60'}
-                </a>
-                {/plans}
-            </li>
-            <li><strong>Размер:</strong> {size} м</li>
-            <li><strong>Площадь:</strong> {space} м2</li>
-            <li><strong>Этажность:</strong> {floors:label}</li>
-            <li><strong>Срок строительства:</strong> {srok} дней</li>
+<div class="box-product">
+	<h1 class="h1">Проект {categories}{category_name}{/categories} {title} {size} М {edit_link} <button class="btn default">Заказать</button></h1>
+	<div class="box-image">                                
+        <ul class="image-product">
+        	{pic}
+			<li>
+				<a href="{exp:ce_img:pair src="{url}" {wm_pic} cache="yes" refresh="0"}{made}{/exp:ce_img:pair}" class="fancybox"  data-fancybox-group="gallery">
+			  	<img src="{exp:ce_img:pair src="{url}" width="677" height="495" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  alt="">
+				</a>
+			</li>
+			{/pic}
         </ul>
-        </div>
-     
-      </div>
+        {if pic:total_files > 1}
+        <div id="liquid">
+        	<span class="previous"></span>
+            	<div class="wrapper">
+            		<ul id="bx-pager-image">                                                                
+        			{pic}
+                        <li><a data-slide-index="0" href=""><div><div class="hover-preview-image"></div><img src="{exp:ce_img:pair src="{url}" width="148" height="103" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" /></div></a></li> 
+        			{/pic}
+                    </ul>
+               	</div>
+           	<span class="next"></span>
+        </div>                                
+        {/if}
     </div>
-  </div>
-</section>
+
+    <div class="option-box">
+        <div class="plane">
+            <h2>Планировка</h2>
+            <div class="image-plan">
+            	{plans limit="1"}
+                <a class="fancybox" href="{url}" data-fancybox-group="gallery" title="">
+                	{exp:ce_img:single src="{url}" width='360' allow_scale_larger='yes' crop='no' cache='yes' refresh='60'}
+                </a>
+				{/plans}
+            </div>
+        </div>
+        <div class="atribete">
+            <h2>Характеристики</h2>
+            <div class="line-atribete">
+                Размер: <span>{size} м</span>
+            </div>
+            <div class="line-atribete">
+                Площадь: <span>{space} м<sup>2</sup></span>
+            </div>
+            <div class="line-atribete">
+                Этажность: <span>{floors:label}</span>
+            </div>
+        </div>
+    </div>
+    <div class="description">
+        Возможно добавление/перестановка перегородок, дверей, окон, а также сан.узла (при его отсутствии на плане)
+    </div>   
+
+    <div class="prices">
+         <h2>Цены</h2>         
+         <div class="box-prices">
+    		{compl limit="3"}
+             <div>
+                 <div class="title-rices one">Базовая комплектация </div>
+                 <div class="value-prices">
+                     {if label == 'Акция'}<div class="old">{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "} <del>Р</del></div></div>{/if}
+                     <div class="new">{exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <del>Р</del></div>
+                 </div>
+                 <div class="button-prices">
+                     <div class="img-prices1"></div>
+                     <a class="base">Смотреть комплектацию</a>
+                 </div>
+             </div>
+    		{/compl}
+         </div>
+     </div> 
+
+   
+
+
+		<div class="col-xs-8">
+		<div class="slider-gallery">
+		  <div class="connected-carousels">
+			<div class="stage">
+			  <div class="carousel carousel-stage" data-jcarousel="true">
+				<ul>
+
+				  {pic}
+				  <li>
+					<a href="{exp:ce_img:pair src="{url}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" class="fancybox" rel="example_group">
+					  <img src="{exp:ce_img:pair src="{url}" width="620" height="584" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  width="620" alt="">
+					</a>
+				  </li>
+				  {/pic}
+				  {!--if gallery_entry}
+					{gallery_entry show_expired="yes" limit="2"}
+						{exp:channel_images:images entry_id="{entry_id}" limit="16" sort="asc"}
+						  <li>
+							<a href="{exp:ce_img:pair src="{image:url:large}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" class="fancybox" rel="example_group">
+							<img src="{exp:ce_img:pair src="{image:url:large}" width="620" height="584" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}" alt="">
+							</a>
+						  </li>
+						{/exp:channel_images:images}
+					{/gallery_entry}
+				  {/if--}
+
+				</ul>
+			  </div>
+			  {if {pic:total_files} > '1' OR gallery_entry!=''}
+			  <a href="#" class="prev prev-stage" data-jcarouselcontrol="true"><span>‹</span></a>
+			  <a href="#" class="next next-stage" data-jcarouselcontrol="true"><span>›</span></a>
+			  {/if}
+			</div>
+
+			{!--if {pic:total_files} > '1' OR gallery_entry!=''} {/if--}
+			<div class="navigation">
+				<a href="#" class="prev prev-navigation inactive" data-jcarouselcontrol="true">‹</a>
+				<a href="#" class="next next-navigation" data-jcarouselcontrol="true">›</a>
+				<div class="carousel carousel-navigation" data-jcarousel="true">
+					<ul style="left: 0px; top: 0px;">
+					  {pic}
+					  <li data-jcarouselcontrol="true">
+						 <img src="{exp:ce_img:pair src="{url}" width="74" height="54" {wm_pic} allow_scale_larger="yes" crop="yes" cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  alt="">
+					  </li>
+					  {/pic}
+
+					  {!--if gallery_entry}
+					  {gallery_entry show_expired="yes" limit="2"}
+						{exp:channel_images:images entry_id="{entry_id}" limit="16" sort="asc"}
+						  <li>
+							<img src="{exp:ce_img:pair src='{image:url:large}' width='74' height='54' allow_scale_larger='yes' crop='yes' cache='yes' refresh='60'}{made}{/exp:ce_img:pair}" alt="">
+						  </li>
+						{/exp:channel_images:images}
+					  {/gallery_entry}
+					  {/if--}
+
+					</ul>
+				</div>
+			</div>
+
+
+
+
+
+		  </div>
+		</div>
+	  </div>
+
+	  <div class="col-xs-4">
+		<div class="hed-right-el">
+	  {compl limit="2"}
+		  <p>
+			Цена «{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}»
+		  </p>
+		  <div class="price-el">
+			  <p>
+				{if label == 'Акция'}<span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>{/if}
+				{exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i>
+			  </p>
+		  </div>
+		{/compl}
+		<a href="#" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#orderModalW">Оставить заявку</a>
+		<ul>
+			<li>
+				<strong>Планировка:</strong>
+				{plans limit="1"}
+				<a href="{url}" class="fancybox" rel="example_group">
+				  {exp:ce_img:single src="{url}" width='293' allow_scale_larger='yes' crop='no' cache='yes' refresh='60'}
+				</a>
+				{/plans}
+			</li>
+			<li><strong>Размер:</strong> {size} м</li>
+			<li><strong>Площадь:</strong> {space} м2</li>
+			<li><strong>Этажность:</strong> {floors:label}</li>
+			<li><strong>Срок строительства:</strong> {srok} дней</li>
+		</ul>
+		</div>
+	 
+	  </div>
+
+</div>
+
 <section class="s-container">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 s-slider">
-                {embed="inc/.slider"} 
-                <div class="project-s-footer">
-                    <div class="row">
-                        <div class="col-xs-12 ">
-                            <div class="row">
-                                <div class="col-xs-12 form-project">
-                                    <div class="row">
-                                        <div class="bagck">
-                                            {exp:freeform:form
-                                              form:id="orderFormSmall"
-                                              form:role="form"
-                                              form_id="7"
-                                              required="name|phone"
-                                              require_captcha="no"
-                                              require_ip="yes"
-                                            }
-                                            <input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
-                                            <input type="hidden" name="forma_kakaya" value="Заявка по акции">
-                                            <input type="hidden" name="url" value="{current_url}">
-                                            <input type="hidden" name="project" value="{title}">
-                                            <input type="hidden" name="eid" value="{entry_id}">
-                                            <input type="hidden" name="extra_options" value="">
-                                            <div id="general_errors_orderFormSmall"></div>
-                                            <h2>Оставьте заявку по акции</h2>
-                                                <div class="col-xs-4">
-                                                    <label>
-                                                        <i class="icon icon-people"></i>
-                                                        <input type="text" class="form-control" name="name" placeholder="Ваше имя">
-                                                        <div class="error_message"></div>
-                                                    </label>
-                                                </div>
-                                                <div class="col-xs-4">
-                                                    <label>
-                                                        <i class="icon icon-phone"></i>
-                                                        <input type="text" class="form-control" name="phone" placeholder="Ваш телефон">
-                                                        <div class="error_message"></div>
-                                                    </label>
-                                                </div>
-                                                <div class="col-xs-4 from-bottom">
-                                                    <button class="btn btn-warning btn-block"><i class="fa fa-paper-plane"></i> Оставить заявку</button>
-                                                </div>
-                                            {/exp:freeform:form}
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-project">
-                    <h2>Комплектация</h2>
-                    <table>
-                      <tr>
-                        <th>Цена</th>
-                        {compl limit="2"}
-                        <th>{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}</th>
-                         {/compl}
-                      </tr>
-                      <tr>
-                        <td></td>
-                        {compl limit="2"}
-                        <td>
-                            <div class="price-el">
-                                <p>{if label == 'Акция'}<span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>{/if} {exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i></p>
-                            </div>
-                        </td>
-                       {/compl}
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 s-slider">
+				{embed="inc/.slider"} 
+				<div class="project-s-footer">
+					<div class="row">
+						<div class="col-xs-12 ">
+							<div class="row">
+								<div class="col-xs-12 form-project">
+									<div class="row">
+										<div class="bagck">
+											{exp:freeform:form
+											  form:id="orderFormSmall"
+											  form:role="form"
+											  form_id="7"
+											  required="name|phone"
+											  require_captcha="no"
+											  require_ip="yes"
+											}
+											<input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
+											<input type="hidden" name="forma_kakaya" value="Заявка по акции">
+											<input type="hidden" name="url" value="{current_url}">
+											<input type="hidden" name="project" value="{title}">
+											<input type="hidden" name="eid" value="{entry_id}">
+											<input type="hidden" name="extra_options" value="">
+											<div id="general_errors_orderFormSmall"></div>
+											<h2>Оставьте заявку по акции</h2>
+												<div class="col-xs-4">
+													<label>
+														<i class="icon icon-people"></i>
+														<input type="text" class="form-control" name="name" placeholder="Ваше имя">
+														<div class="error_message"></div>
+													</label>
+												</div>
+												<div class="col-xs-4">
+													<label>
+														<i class="icon icon-phone"></i>
+														<input type="text" class="form-control" name="phone" placeholder="Ваш телефон">
+														<div class="error_message"></div>
+													</label>
+												</div>
+												<div class="col-xs-4 from-bottom">
+													<button class="btn btn-warning btn-block"><i class="fa fa-paper-plane"></i> Оставить заявку</button>
+												</div>
+											{/exp:freeform:form}
+											<div class="clearfix"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="content-project">
+					<h2>Комплектация</h2>
+					<table>
+					  <tr>
+						<th>Цена</th>
+						{compl limit="2"}
+						<th>{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}</th>
+						 {/compl}
+					  </tr>
+					  <tr>
+						<td></td>
+						{compl limit="2"}
+						<td>
+							<div class="price-el">
+								<p>{if label == 'Акция'}<span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>{/if} {exp:math formula="[1]"  params="{cell_3}" decimals="0" thousands_seperator=" "} <i class="fa fa-rub"></i></p>
+							</div>
+						</td>
+					   {/compl}
 
  
-                      </tr>
-                    </table>
-                    {compl limit="1"}
-                      {cell_1}
-                      {complectation_matrix}
-                      <div class="hed-right-el img-descr">
-                          <p><b>{cell_1}</b></p>
-                          {cell_2}
-                          {exp:ce_img:single src="{url}" width='200' allow_scale_larger='yes' crop='no' cache='yes' refresh='60'}
-                          {/cell_2}
-                          {cell_3}
-                          {cell_4}
-                          <div class="clear"></div>
-                      </div>
-                      {/complectation_matrix}
-                    {complectation_text}
-                      {/cell_1}
-                    {/compl}
-                    <div class="proj-bottom">
-                        <a href="#" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#orderModalW">Оставить заявку</a>
-                        <h2>Похожие проекты размером {size} м</h2>
-                        <div class="slider1">
-                          {embed="inc/.similar_projects" size="{size}"} 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					  </tr>
+					</table>
+					{compl limit="1"}
+					  {cell_1}
+					  {complectation_matrix}
+					  <div class="hed-right-el img-descr">
+						  <p><b>{cell_1}</b></p>
+						  {cell_2}
+						  {exp:ce_img:single src="{url}" width='200' allow_scale_larger='yes' crop='no' cache='yes' refresh='60'}
+						  {/cell_2}
+						  {cell_3}
+						  {cell_4}
+						  <div class="clear"></div>
+					  </div>
+					  {/complectation_matrix}
+					{complectation_text}
+					  {/cell_1}
+					{/compl}
+					<div class="proj-bottom">
+						<a href="#" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#orderModalW">Оставить заявку</a>
+						<h2>Похожие проекты размером {size} м</h2>
+						<div class="slider1">
+						  {embed="inc/.similar_projects" size="{size}"} 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <div class="clear"></div>
 
 
-        <script type="text/javascript">
-          $(document).ready(function() {
-            $(".fancybox-thumb").fancybox();
-          });
-        </script>
+		<script type="text/javascript">
+		  $(document).ready(function() {
+			$(".fancybox-thumb").fancybox();
+		  });
+		</script>
 
 
 <!-- Modal -->
 <div class="modal fade" id="orderModalW" tabindex="-1" role="dialog" aria-labelledby="orderModalWLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="orderModalWLabel">Оставить заявку</h4>
-      </div>
-      <div class="modal-body">
-        {exp:freeform:form
-        form:id="orderModal"
-        form:role="form"
-        form_id="7"
-        required="name|phone"
-        require_captcha="no"
-        require_ip="yes"
-      }
-       <input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
-       <input type="hidden" name="forma_kakaya" value="Заявка страницы проекта">
-       <input type="hidden" name="url" value="{current_url}">
-       <input type="hidden" name="project" value="{title}">
-       <input type="hidden" name="extra_options" value="">
-              <div id="general_errors_orderModal"></div>
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="orderModalWLabel">Оставить заявку</h4>
+	  </div>
+	  <div class="modal-body">
+		{exp:freeform:form
+		form:id="orderModal"
+		form:role="form"
+		form_id="7"
+		required="name|phone"
+		require_captcha="no"
+		require_ip="yes"
+	  }
+	   <input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
+	   <input type="hidden" name="forma_kakaya" value="Заявка страницы проекта">
+	   <input type="hidden" name="url" value="{current_url}">
+	   <input type="hidden" name="project" value="{title}">
+	   <input type="hidden" name="extra_options" value="">
+			  <div id="general_errors_orderModal"></div>
 
-           <div class="form-action">
-                <div class="head-form">
-                <div class="inp">
-                    <span>Имя*:</span><input type="text" class="t-input" placeholder="Ваше имя" name="name">
-                    <div class="error_message"></div>
-                </div>
-                <div class="clear"></div>
-                <div class="inp">
-                    <span>Телефон*:</span><input type="text" class="t-input" placeholder="Ваш телефон" name="phone">
-                    <div class="error_message"></div>
-                </div>
-                <div class="clear"></div>
-                <button class="btn btn-warning"><i class="fa fa-paper-plane"></i> Оставить заявку</button>
-                <div class="clear"></div>
-           </div>
-           </div>
+		   <div class="form-action">
+				<div class="head-form">
+				<div class="inp">
+					<span>Имя*:</span><input type="text" class="t-input" placeholder="Ваше имя" name="name">
+					<div class="error_message"></div>
+				</div>
+				<div class="clear"></div>
+				<div class="inp">
+					<span>Телефон*:</span><input type="text" class="t-input" placeholder="Ваш телефон" name="phone">
+					<div class="error_message"></div>
+				</div>
+				<div class="clear"></div>
+				<button class="btn btn-warning"><i class="fa fa-paper-plane"></i> Оставить заявку</button>
+				<div class="clear"></div>
+		   </div>
+		   </div>
   
-      {/exp:freeform:form}
-      </div>
-      
-    </div>
+	  {/exp:freeform:form}
+	  </div>
+	  
+	</div>
   </div>
 </div>
 

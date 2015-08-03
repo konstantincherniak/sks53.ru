@@ -57,258 +57,227 @@
 
 	</script>
 
-	  					<?
-                          $urlCategoryTitle = ee()->uri->segment(2);
+						<?
+						  $urlCategoryTitle = ee()->uri->segment(2);
 
-                          switch ($urlCategoryTitle) {
-                            case 'doma-iz-brusa':
-                              $categoryActive = "AND exp_category_posts.cat_id = 1";
-                              break;
-                            case 'bani-iz-brusa':
-                              $categoryActive = "AND exp_category_posts.cat_id = 2";
-                              break;
-                            default:
-                              $categoryActive = "";
-                              break;
-                          }
+						  switch ($urlCategoryTitle) {
+							case 'doma-iz-brusa':
+							  $categoryActive = "AND exp_category_posts.cat_id = 1";
+							  break;
+							case 'bani-iz-brusa':
+							  $categoryActive = "AND exp_category_posts.cat_id = 2";
+							  break;
+							default:
+							  $categoryActive = "";
+							  break;
+						  }
 
 
-                          $results = ee()->db->query("SELECT 
-                              MAX(exp_channel_data.field_id_8) AS space_max_sql,
-                              MIN(exp_channel_data.field_id_8) AS space_min_sql                              
-                              FROM exp_channel_data
-                                INNER JOIN exp_channel_titles
-                                  ON exp_channel_data.entry_id = exp_channel_titles.entry_id
-                                INNER JOIN exp_category_posts
-                                  ON exp_channel_data.entry_id = exp_category_posts.entry_id
-                              WHERE exp_channel_data.channel_id = '6' 
-                              AND exp_channel_titles.status = 'open' ".$categoryActive."
-                            ORDER BY exp_channel_data.field_id_14 ASC
-                            ");
-                          if ($results->num_rows() > 0)
-                          {
-                              foreach($results->result_array() as $space)
-                              {
-                                $space_min = $space['space_min_sql'];
-                                $space_max = $space['space_max_sql'];
-                              }
-                           }
-                          
-                           $results = ee()->db->query("SELECT 
-                            MIN(exp_matrix_data.col_id_10) AS projects_avgprice_sql_min, 
-                            MAX(exp_matrix_data.col_id_10) AS projects_avgprice_sql_max 
-                            FROM exp_matrix_data 
-                              INNER JOIN exp_category_posts
-                                ON exp_matrix_data.entry_id = exp_category_posts.entry_id
-                            WHERE exp_matrix_data.field_id = '14' ".$categoryActive."
-                            ");
-                            if ($results->num_rows() > 0)
-                            {                            
-                              foreach($results->result_array() as $row_price)
-                              {
-                                  $price_min = ($row_price['projects_avgprice_sql_min'] !="") ? $row_price['projects_avgprice_sql_min'] : 0;
-                                  $price_max = $row_price['projects_avgprice_sql_max'];
-                              }
-                            }
-                        ?>
-    <script>
-       	$(document).ready(function() {
-            $(function() {
-            	
-            	var spaceMin = <? echo $space_min; ?>;
-            	var spaceMax = <? echo $space_max; ?>;
-            	var priceMin = <? echo $price_min; ?>;
-            	var priceMax = <? echo $price_max; ?>;
+						  $results = ee()->db->query("SELECT 
+							  MAX(exp_channel_data.field_id_8) AS space_max_sql,
+							  MIN(exp_channel_data.field_id_8) AS space_min_sql                              
+							  FROM exp_channel_data
+								INNER JOIN exp_channel_titles
+								  ON exp_channel_data.entry_id = exp_channel_titles.entry_id
+								INNER JOIN exp_category_posts
+								  ON exp_channel_data.entry_id = exp_category_posts.entry_id
+							  WHERE exp_channel_data.channel_id = '6' 
+							  AND exp_channel_titles.status = 'open' ".$categoryActive."
+							ORDER BY exp_channel_data.field_id_14 ASC
+							");
+						  if ($results->num_rows() > 0)
+						  {
+							  foreach($results->result_array() as $space)
+							  {
+								$space_min = $space['space_min_sql'];
+								$space_max = $space['space_max_sql'];
+							  }
+						   }
+						  
+						   $results = ee()->db->query("SELECT 
+							MIN(exp_matrix_data.col_id_10) AS projects_avgprice_sql_min, 
+							MAX(exp_matrix_data.col_id_10) AS projects_avgprice_sql_max 
+							FROM exp_matrix_data 
+							  INNER JOIN exp_category_posts
+								ON exp_matrix_data.entry_id = exp_category_posts.entry_id
+							WHERE exp_matrix_data.field_id = '14' ".$categoryActive."
+							");
+							if ($results->num_rows() > 0)
+							{                            
+							  foreach($results->result_array() as $row_price)
+							  {
+								  $price_min = ($row_price['projects_avgprice_sql_min'] !="") ? $row_price['projects_avgprice_sql_min'] : 0;
+								  $price_max = $row_price['projects_avgprice_sql_max'];
+							  }
+							}
+						   
 
-               $( "#slider-range" ).slider({
-                 range: true,
-                 min: spaceMin,
-                 max: spaceMax,
-                 values: [ spaceMin, spaceMax ],
-                 slide: function( event, ui ) {
-                   $("#amount" ).val( ui.values[ 0 ] );
-                   $("#amount1" ).val( ui.values[ 1 ] );
-                 }
-               });
-               $( "#slider-range1" ).slider({
-                 range: true,
-                 min: priceMin,
-                 max: priceMax,
-                 values: [ priceMin, priceMax ],
-                 slide: function( event, ui ) {
-                   $("#amount2" ).val( ui.values[ 0 ] );
-                   $("#amount3" ).val( ui.values[ 1 ] );
-                 }
-                              
-               });
-               $("#amount" ).val($( "#slider-range" ).slider( "values", 0 ));
-               $("#amount1" ).val($( "#slider-range" ).slider( "values", 1 ));
-               
-               $("#amount2" ).val($( "#slider-range1" ).slider( "values", 0 ));
-               $("#amount3" ).val($( "#slider-range1" ).slider( "values", 1 ));                                
-               
-           });
-        });
+							 $results = ee()->db->query("SELECT DISTINCT exp_channel_data.field_id_6 AS size_sql FROM exp_channel_data INNER JOIN exp_channel_titles ON exp_channel_data.entry_id = exp_channel_titles.entry_id INNER JOIN exp_category_posts ON exp_channel_data.entry_id = exp_category_posts.entry_id WHERE exp_channel_data.channel_id = '6' AND exp_channel_titles.status = 'open' ".$categoryActive." ORDER BY exp_channel_data.field_id_6 ASC");
+							  $size_sql ="";
+							  if ($results->num_rows() > 0)
+							  {
+								  foreach($results->result_array() as $size_arr)
+								  {
+									$size_sql.= "'".$size_arr['size_sql']."',";
+								  }
+							   }
+
+						?>
+	<script>
+		$(document).ready(function() {
+			$(function() {
+				
+				var spaceMin = <? echo $space_min; ?>;
+				var spaceMax = <? echo $space_max; ?>;
+				var priceMin = <? echo $price_min; ?>;
+				var priceMax = <? echo $price_max; ?>;
+			  var arrSizes = [<? echo $size_sql; ?>];
+
+			   $( "#slider-range" ).slider({
+				 range: true,
+				 min: spaceMin,
+				 max: spaceMax,
+				 values: [ spaceMin, spaceMax ],
+				 slide: function( event, ui ) {
+				   $("#amount" ).val( ui.values[ 0 ] );
+				   $("#amount1" ).val( ui.values[ 1 ] );
+				 }
+			   });
+			   $( "#slider-range1" ).slider({
+				 range: true,
+				 min: priceMin,
+				 max: priceMax,
+				 values: [ priceMin, priceMax ],
+				 slide: function( event, ui ) {
+				   $("#amount2" ).val( ui.values[ 0 ] );
+				   $("#amount3" ).val( ui.values[ 1 ] );
+				 }
+							  
+			   });
+			   $("#amount" ).val($( "#slider-range" ).slider( "values", 0 ));
+			   $("#amount1" ).val($( "#slider-range" ).slider( "values", 1 ));
+			   
+			   $("#amount2" ).val($( "#slider-range1" ).slider( "values", 0 ));
+			   $("#amount3" ).val($( "#slider-range1" ).slider( "values", 1 ));
+			   for (var i = 0; i< arrSizes.length; i++ ) {
+				  var checkboxTempl = "<div class='check'><input name='size[]' value='"+arrSizes[i]+"' type='checkbox' id='ch"+i+"'><label for='ch"+i+"'>"+arrSizes[i]+"</label></div>";
+				$("#checkboxesSize").append(checkboxTempl);
+			   }
+			   
+		   });
+		});
 	</script>
 
-  	<h1 class="h1">{segment_2_category_name}</h1>
-  	<p> {segment_2_category_description} </p>
-  	<div class="filter">
-        <h2>Фильтр</h2>
-        <div class="size-filter">
-            <div class="left-filter">Размер:</div>
-            <div class="right-filter">
-                <div class="check">
-                    <input type="checkbox" id="1"> 
-                    <label for="1">4х4</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="2"> 
-                    <label for="2">5х4</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="3"> 
-                    <label for="3">6х4</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="4"> 
-                    <label for="4">6х5</label>
-                </div>                                                                        
-                <div class="check">
-                    <input type="checkbox" id="5"> 
-                    <label for="5">6х6</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="6"> 
-                    <label for="6">7х54</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="7"> 
-                    <label for="7">7х6</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="8"> 
-                    <label for="8">8х8</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="9"> 
-                    <label for="9">9х10</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="10"> 
-                    <label for="10">10х10</label>
-                </div>                                                                                                            
-                <div class="check">
-                    <input type="checkbox" id="11"> 
-                    <label for="11">12х10</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="12"> 
-                    <label for="12">12х14</label>
-                </div>
-                <div class="check">
-                    <input type="checkbox" id="13"> 
-                    <label for="13">16х14</label>
-                </div>
-            </div>
-        </div>
-        <div class="size-filter">
-            <div class="left-filter">Площадь:</div>
-            <div class="right-filter">  
-                <div class="value-slid">                                      
-                    <input type="text" id="amount" readonly /> - 
-                    <input type="text" id="amount1" readonly /> <span>м<sup>2</sup></span>
-                </div>
-                <div class="slider-check">
-                    <div id="slider-range"></div>
-                    <div class="min"><? echo $space_min; ?></div>
-                    <div class="max"><? echo $space_max; ?></div>
-                </div>                                  
-            </div>
-        </div>
-        <div class="size-filter">
-            <div class="left-filter">Цена:</div>
-            <div class="right-filter">  
-                <div class="right-filter">  
-                    <div class="value-slid two">                                      
-                        <input type="text" id="amount2" readonly /> - 
-                        <input type="text" id="amount3" readonly /> <span><del>Р</del></span>
-                    </div>
-                    <div class="slider-check">
-                        <div id="slider-range1"></div>
-                        <div class="min"><? echo $price_min; ?></div>
-                        <div class="max"><? echo $price_max; ?></div>
-                    </div>                                  
-                </div>                                  
-            </div>
-        </div>
-    </div>
-{exp:channel:entries channel="catalog" category="{segment_2_category_id}" limit="999" orderby="date" sort="asc" disable="member_data|trackbacks"}
-
-		{if count %3== '1'}<div class="row cat-gall">{/if}
-	  <div class="col-xs-4">
-		<div class="col-xs-12">
-		  <div class="bord-cat">
-			<a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}" >
-			{pic limit="1"}
-			{exp:ce_img:pair src="{url}" {wm_pic} crop="yes" width="282" height="230" cache="yes" refresh="60"}
-			<img src="{made}" >
-			{/exp:ce_img:pair}
-			{/pic}
-			<p class="bord-solid"><strong>{title}</strong> {size} м, {space} м<sup>2</sup></p>
-			{compl limit="2"}
-			<p class="ads-dd{if row_count != total_rows} bord-dashed{/if}">
-			  <small>{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}:</small>
-			  {if label == 'Акция'}<span class="small-price">{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "}</span>{/if}
-			  {exp:number_format number="{cell_3}" dec_point=" " thousands_sep=" "}
-			  <i class="fa fa-rub"></i>
-			</p>
-			{/compl}
-
-			{if label == 'Новинка'}
-			<i class="sale news"></i>
-			{/if}
-			{!--if label == 'Хит'}
-			<i class="sale"></i>
-			{/if--}
-			{if label == 'Акция'}
-			<i class="sale"></i>
-			{/if}
-			</a>
-		  </div>
+	<h1 class="h1">{segment_2_category_name}</h1>
+	<p> {segment_2_category_description} </p>
+	<div class="filter">
+		<h2>Фильтр</h2>
+		{exp:super_search:search}
+        <form class="form-inline" id="filter" method="post" action="/inc/results">
+        <input type="hidden" name="csrf_token" value="{csrf_token}">
+        <input type="hidden" name="category" value="{segment_2_category_id}">
+		<div class="size-filter">
+			<div class="left-filter">Размер:</div>
+			<div class="right-filter" id="checkboxesSize">                
+			</div>
 		</div>
-	  </div>
+		<div class="size-filter">
+			<div class="left-filter">Площадь:</div>
+			<div class="right-filter">  
+				<div class="value-slid">                                      
+					<input type="text" id="amount" name="space-from" readonly /> - 
+					<input type="text" id="amount1" name="space-to" readonly /> <span>м<sup>2</sup></span>
+				</div>
+				<div class="slider-check">
+					<div id="slider-range"></div>
+					<div class="min"><? echo $space_min; ?></div>
+					<div class="max"><? echo $space_max; ?></div>
+				</div>                                  
+			</div>
+		</div>
+		<div class="size-filter">
+			<div class="left-filter">Цена:</div>
+			<div class="right-filter">  
+				<div class="right-filter">  
+					<div class="value-slid two">                                      
+						<input type="text" name="compl-from" id="amount2" readonly /> - 
+						<input type="text" name="compl-to" id="amount3" readonly /> <span><del>Р</del></span>
+					</div>
+					<div class="slider-check">
+						<div id="slider-range1"></div>
+						<div class="min"><? echo $price_min; ?></div>
+						<div class="max"><? echo $price_max; ?></div>
+					</div>                                  
+				</div>                                  
+			</div>
+		</div>
+		<br>
+		<br>
+		<button class="btn btn-green" type="submit">Поиск</button>
+		</form>
+		{/exp:super_search:search}
+	</div>
+	<div class="product-grid" id="results">
+{exp:channel:entries channel="catalog" category="{segment_2_category_id}" limit="999" orderby="date" sort="asc" disable="member_data|trackbacks"}
+	  	<div class="col-md-4">
+	  	{if label == 'Новинка'}
+	  	<div class="new-sticer"></div>
+	  	{/if}
+	  	{!--if label == 'Хит'}
+	  	<div class="sale-sticer"></div>
+	  	{/if--}
+	  	{if label == 'Акция'}
+	  	<div class="sale-sticer"></div>
+	  	{/if}
+	  	<div class="size-sale">{size}</div>
+		<a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}">
+			<div class="image">
+				<div class="image-hover"></div>
+				{pic limit="1"}
+				{exp:ce_img:pair src="{url}" {wm_pic} crop="yes" width="200" height="156" cache="yes" refresh="60"}
+				<img src="{made}" >
+				{/exp:ce_img:pair}
+				{/pic}
+			</div>
+		</a> 
+		{compl limit="1"}
+		<div class="name"><a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}">{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}</a></div>
+        <div class="price">
+        {if label == 'Акция'}
+        	<span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "} <del>Р</del></span> 
+        {/if}
+        	{exp:number_format number="{cell_3}" dec_point=" " thousands_sep=" "} <del>Р</del>
+        </div>
+		{/compl}
 
-		{if count == total_results || count % 3 == 0}
-		  </div>
-		{/if}
+		
+	  </div>
 
 		{if no_results}
 		  <div class="alert alert-warning">Проекты не найдены</div>
 		{/if}
 
 {/exp:channel:entries}
+  </div>
 
 {if:else}
-			  <h1 class="text-center">Каталог проектов</h1>
+			  <h1 class="h1">Каталог проектов</h1>
 
 			   <div class="row">
 			   {exp:channel:categories style="linear" category_group="1"}
-				<div class="col-xs-6 blue-cat">
-				  <div class="img-catalq" style="width: 402px;height: 326px;">
+				<div class="col-xs-6">
+				  <div>
 					<a href="/catalog/{category_url_title}">
-					{exp:ce_img:pair src="{category_image}" crop="yes" width="402" height="326" cache="yes" refresh="60"}
+					{exp:ce_img:pair src="{category_image}" crop="yes" width="300" height="260" cache="yes" refresh="60"}
 					<img src="{made}" >
 					{/exp:ce_img:pair}
 					</a>
 				  </div>
-				  <div class="bot-cat" style="width: 402px;">
-					  <div class="nm-catalq">
+				  <div>					  
 						<h2><a href="/catalog/{category_url_title}">
 						  {category_name}
 						</a></h2>
-					  </div>
-					  <div class="cq-4">
+					  <div>
 						  <a href="/catalog/{category_url_title}" class="link-center">Все проекты {exp:catcount cat_id='{category_id}' status='open'} шт.</a>
 					  </div>
 				  </div>
@@ -319,22 +288,22 @@
 		  {/if}
 </div>
 <script>
-       $(document).ready(function() {
-           $('.slider1').bxSlider({
-               slideWidth: 156,
-               minSlides: 4,
-               maxSlides: 4,
-               slideMargin: 15
-           });
-           $('.bxslider').bxSlider({
-               pagerCustom: '#bx-pager'
-           });
-           
-           $('#bx-pager').bxSlider({
-               mode: 'vertical',
-               slideWidth: 158,
-               minSlides: 3,
-               slideMargin: 0
-           });
-       });
+	   $(document).ready(function() {
+		   $('.slider1').bxSlider({
+			   slideWidth: 156,
+			   minSlides: 4,
+			   maxSlides: 4,
+			   slideMargin: 15
+		   });
+		   $('.bxslider').bxSlider({
+			   pagerCustom: '#bx-pager'
+		   });
+		   
+		   $('#bx-pager').bxSlider({
+			   mode: 'vertical',
+			   slideWidth: 158,
+			   minSlides: 3,
+			   slideMargin: 0
+		   });
+	   });
 </script>

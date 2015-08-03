@@ -1,0 +1,40 @@
+{exp:super_search:results channel="catalog"  limit="999" orderby="size" sort="asc|asc|asc" disable="member_data|trackbacks"}
+      <div class="col-md-4">
+      {if label == 'Новинка'}
+      <div class="new-sticer"></div>
+      {/if}
+      {!--if label == 'Хит'}
+      <div class="sale-sticer"></div>
+      {/if--}
+      {if label == 'Акция'}
+      <div class="sale-sticer"></div>
+      {/if}
+      <div class="size-sale">{size}</div>
+    <a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}">
+      <div class="image">
+        <div class="image-hover"></div>
+        {pic limit="1"}
+        {exp:ce_img:pair src="{url}" {wm_pic} crop="yes" width="200" height="156" cache="yes" refresh="60"}
+        <img src="{made}" >
+        {/exp:ce_img:pair}
+        {/pic}
+      </div>
+    </a> 
+    {compl limit="1"}
+    <div class="name"><a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}">{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}</a></div>
+        <div class="price">
+        {if label == 'Акция'}
+          <span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "} <del>Р</del></span> 
+        {/if}
+          {exp:number_format number="{cell_3}" dec_point=" " thousands_sep=" "} <del>Р</del>
+        </div>
+    {/compl}
+
+    
+    </div>
+
+    {if no_results}
+      <div class="alert alert-warning">Проекты не найдены</div>
+    {/if}
+
+{/exp:super_search:results}

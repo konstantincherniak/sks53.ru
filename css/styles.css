@@ -862,7 +862,7 @@ input {
 .product-grid > div:nth-child(3n+3) {
     margin-right: 0;
 }
-.product-grid > div:hover{
+.product-grid > div.col-md-4:hover{
     border: 1px solid #ffdd16;
 }
 .product-grid > div:hover > a > .image > .image-hover {
@@ -2024,3 +2024,16 @@ footer > .container {
     margin: 0;
 }
 
+div.white-cover {
+    background: rgba(255,255,255,.7);
+    border: none;
+    color: #003c52;
+    font-size: 36px;
+    height: 100%;
+    margin-left: -15px;
+    padding-top: 20px;
+    position: absolute;
+    text-align: center;
+    width: 98%;
+    z-index: 9000;
+}
