@@ -86,3 +86,24 @@
                         </div>
                         {/exp:channel:entries}
                     </div>
+
+                    <script>
+                        $(document).ready(function() {
+                            $('.slider1').bxSlider({
+                                slideWidth: 156,
+                                minSlides: 4,
+                                maxSlides: 4,
+                                slideMargin: 15
+                            });
+                            $('.bxslider').bxSlider({
+                                pagerCustom: '#bx-pager'
+                            });
+                            
+                            $('#bx-pager').bxSlider({
+                                mode: 'vertical',
+                                slideWidth: 158,
+                                minSlides: 3,
+                                slideMargin: 0
+                              });                       
+                        });
+                    </script>
