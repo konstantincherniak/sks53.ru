@@ -15,14 +15,28 @@
 	<link rel="stylesheet" href="/css/font-awesome.min.css">
 	<link rel='stylesheet' href='/css/styles.css' type='text/css' media='all'>
 	<link rel="stylesheet" type="text/css" href="/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+	<link rel='stylesheet' href='/css/jquery-ui.css' type='text/css' media='all'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="/js/jquery-ui.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/scripts.js"></script>
+	<script src="/js/jquery.bxslider.min.js"></script>
+	<script src="/js/jquery.cycle2.min.js"></script>
+	<script type="text/javascript" src="/source/jquery.fancybox.js?v=2.1.5"></script>	
+	<script type="text/javascript" src="/js/jquery.form.min.js"></script>	
 	{ga} 
   </head>
 
   <body>
 	{embed="inc/.top"}
 	<div class="content">
-		<div class="container">
+		<div class="container{if segment_1!=""} two-pages{/if}">
 			<div class ="row">
+			{if segment_1!=""}
+				<div class="breadcrumbs">
+					{layout:breadcrumbs}          
+        </div>
+      {/if}
 				<div class="col-md-8">
 					{layout:contents}
 				</div>
@@ -33,32 +47,6 @@
 		</div>
 	</div>
 	{embed="inc/.footer"}
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/scripts.js"></script>
-	<script src="/js/jquery.bxslider.min.js"></script>
-	<script src="/js/jquery.cycle2.min.js"></script>
-	<script type="text/javascript" src="/source/jquery.fancybox.js?v=2.1.5"></script>
-	
-	<script>
-		$(document).ready(function() {
-			$('.slider1').bxSlider({
-				slideWidth: 156,
-				minSlides: 4,
-				maxSlides: 4,
-				slideMargin: 15
-			});
-			$('.bxslider').bxSlider({
-				pagerCustom: '#bx-pager'
-			});
-			
-			$('#bx-pager').bxSlider({
-				mode: 'vertical',
-				slideWidth: 158,
-				minSlides: 3,
-				slideMargin: 0
-			  });                       
-		});
-	</script>
+
   </body>
 </html>
