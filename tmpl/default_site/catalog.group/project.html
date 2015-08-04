@@ -84,7 +84,7 @@
                  </div>
                  <div class="button-prices">
                      <div class="img-prices1"></div>
-                     <a id="compl-{count}-link">Смотреть комплектацию</a>
+                     <a id="compl-{row_count}-link">Смотреть комплектацию</a>
                  </div>
             </div>
     		{/compl}
@@ -108,7 +108,7 @@
 					
 					 
 
-<div class="content1 one-popup" id="compl-1">    
+<div class="content1 one-popup" id="compl-{row_count}">    
 	<div class="modal-header">            
 	    <h1 class="modal-title h1" id="compl-1Label">{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}</h1>
 	</div>
@@ -141,20 +141,20 @@
                        
    	        $.mCustomScrollbar.defaults.scrollButtons.enable=true; 
 			$.mCustomScrollbar.defaults.axis="yx"; 							
-			$("#compl-1").mCustomScrollbar({
+			$("#compl-{row_count}").mCustomScrollbar({
 			     theme:"3d-thick",
                  scrollInertia:10
             });			
              										
                                                 
-            $('#compl-1-link').click(function(){
+            $('#compl-{row_count}-link').click(function(){
                 $('.darck-bg').fadeIn(600);
-                $('#compl-1').fadeIn(600);
+                $('#compl-{row_count}').fadeIn(600);
                 console.log(1);
             });            
         	$('.darck-bg').click(function(){
         	    $('.darck-bg').fadeOut(600);
-        	    $('#compl-1').fadeOut(600);                
+        	    $('#compl-{row_count}').fadeOut(600);                
         	});                                                      
         });
     </script>

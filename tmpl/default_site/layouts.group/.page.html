@@ -16,11 +16,19 @@
 		{content}
 	  {/if}
 	  {if assets}
-		  <ul>
+		  <div class="galery-box">
 			{assets}
-				<li><a href="{url}">{title}</a></li>
+        <div class="col-md-4 col-sm-4 col-xs-4">                                
+            <a class="fancybox" href="{exp:ce_img:pair src="{url}" {wm_pic} cache='yes' refresh='60'}{made}{/exp:ce_img:pair}" data-fancybox-group="gallery" title="">
+                <div class="image">
+                    <div class="hover-galery"></div>
+                    {exp:ce_img:single src="{url}" width='200' height="150" allow_scale_larger='yes' crop='yes' cache='yes' refresh='60'}                    
+                </div>
+            </a>                                
+        </div>
 			{/assets}
-		  </ul>
+      </div>
+		  
 	  {/if}
 
 {/exp:channel:entries}

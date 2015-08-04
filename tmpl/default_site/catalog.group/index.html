@@ -241,7 +241,7 @@
 			</div>
 		</a> 
 		{compl limit="1"}
-		<div class="name"><a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}">{cell_1}{exp:low_replace find="Дом|Баня из бруса 100х150 с мансардой|Баня из бруса 150х150 с мансардой" replace="|Брус 100х150мм|Брус 150х150мм" multiple="yes"}{title}{/exp:low_replace}{/cell_1}</a></div>
+		<div class="name"><a href="/catalog{categories}/{category_url_title}{/categories}/{url_title}">{title}</a></div>
         <div class="price">
         {if label == 'Акция'}
         	<span>{exp:math formula="[1]*100 / ( 100 - [2])"  params="{cell_3}|{label_percent}" decimals="0" thousands_seperator=" "} <del>Р</del></span> 
