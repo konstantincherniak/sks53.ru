@@ -30,7 +30,9 @@
                         </div>
                         <h1 class="h1">О компании</h1>
                         {exp:channel:entries channel="pages" limit="1" entry_id="72" cache="yes" refresh="yes" disable="categories|category_fields|member_data|pagination" dynamic="no"}
-                        {content:excerpt}{edit_link}
+                        <div class="box-product">
+                        {content:excerpt}{edit_link}                          
+                        </div>
                         
                         <div class="galery">
                             <div class="title-repeat">НАША СЫРЬЕВАЯ БАЗА И ПРОИЗВОДСТВО</div>
@@ -69,7 +71,7 @@
                                                                        
                         {exp:channel:entries channel="pages" limit="1" entry_id="281" cache="yes" refresh="yes" disable="categories|category_fields|member_data|pagination" dynamic="no"}
                         <div class="box-repeat">
-                            <div class="title-repeat">{title}</div>
+                            <div class="title-repeat">{title} {edit_link}   </div>
                             <div class="slider1">
                             {assets}
                              	<li>
