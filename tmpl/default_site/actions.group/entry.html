@@ -6,36 +6,22 @@
 {layout:set name="title" value="{title}"}
 {layout:set name="entry_id" value="{entry_id}"}
 
- <section class="s-container s-nav-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <a href="{site_url}">Главная</a>
-          <i class="icon icon-navigation"></i>
-          <a href="/actions">Наши акции</a>
-          <i class="icon icon-navigation"></i>
-          <a class="static-a" href="/actions/{url_title}">{title}</a>
-        </div>
-      </div>
-    </div>
-  <hr>
-</section>
+{layout:set name="breadcrumbs"}
+<a href="/">Главная</a> / 
+<a href="/actions">Наши акции</a> / 
+<span>{title}</span>  
+{/layout:set}
 
-<section class="s-container elements-m table-main table-section last-mod">
-    <div class="container">
-        <div class="row">
-            <div class="cc-content">
 
-		<h1 class="text-center">{title} {edit_link}</h1>
+<div class="box-product">
+		<h1 class="h1">{title} {edit_link}</h1>
 	{if expiration_date!=''}действует до {expiration_date format="%d %M %Y"}{/if}
 	{content}
           {assets limit="1"}
-          {exp:ce_img:pair src="{url}" crop="yes" width="920" height="176" cache="yes" refresh="60"}
+          {exp:ce_img:pair src="{url}" crop="yes" width="620" height="100" cache="yes" refresh="60"}
             <img src="{made}" >
           {/exp:ce_img:pair}
           {/assets}
-      </div>
-    </div>
-	</div>
-</section>
+</div>
+
 {/exp:channel:entries}

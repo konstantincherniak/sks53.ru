@@ -3,33 +3,20 @@
 {layout:set name="title" value="Наши акции{if paginated}, страница {exp:math_plus calculate="{page_offset} + 1"}{math_plus_result}{/exp:math_plus}{/if}"}
 
 
- <section class="s-container s-nav-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <a href="{site_url}">Главная</a>
-          <i class="icon icon-navigation"></i>
-          <a href="/actions" class="static-a">Наши акции</a>
-        </div>
-      </div>
-    </div>
-  <hr>
-</section>
+{layout:set name="breadcrumbs"}
+<a href="/">Главная</a> / 
+<span>Наши акции</span>      
+{/layout:set}
 
-
-<section class="s-container elements-m table-main table-section last-mod">
-    <div class="container">
-        <div class="row">
-            <div class="cc-content">
-
-      <h1 class="text-center">Наши акции</h1>
+<div class="box-product">
+  <h1 class="h1">Наши акции</h1>
 
 {exp:channel:entries channel="actions" disable="categories|category_fields|member_data" cache="no" refresh="60" limit="10" paginate="bottom" paginate_base="actions"}
 
 <h4><a href="{url_title_path='actions'}">{title}</a>{edit_link}</h4>
           <a href="{url_title_path='actions'}">
           {assets limit="1"}
-          {exp:ce_img:pair src="{url}" crop="yes" width="920" height="176" cache="yes" refresh="60"}
+          {exp:ce_img:pair src="{url}" crop="yes" width="620" height="100" cache="yes" refresh="60"}
             <img src="{made}" >
           {/exp:ce_img:pair}
           {/assets}
@@ -40,26 +27,26 @@
 
 {paginate}
           {pagination_links}
-            <div class="nav-bottom">
-                <ul>
+
+              <div class="box-pagination">
+                <div class="pagination">
                   {previous_page}
-                    <li><a href="{pagination_url}" class="ico ic-prev"></a></li>
+                    <a href="{pagination_url}" class="prev"></a>
                   {/previous_page}
                   {page}
-                    <li><a href="{pagination_url}" {if current_page}class="actv-nav"{/if}>{pagination_page_number}</a></li>
+                    <a href="{pagination_url}" {if current_page}class="active"{/if}>{pagination_page_number}</a>
                   {/page}
                  {next_page}
-                    <li><a href="{pagination_url}" class="ico ic-next"></a></li>                    
+                    <a href="{pagination_url}" class="next"></a>                   
                   {/next_page}
-                </ul>
-            </div>
+               </div>
+              </div>
           {/pagination_links}
         {/paginate}
 
 {/exp:channel:entries}
-      </div>
-    </div>
-  </div>
-</section>
+
+</div>
+
 
 

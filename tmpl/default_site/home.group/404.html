@@ -1,23 +1,12 @@
 {layout="layouts/.base"}
  {layout:set name="title" value="Страница не найдена"}
-<section class="s-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 nav-top">
-        <a href="/">Главная</a>
-        <span>></span>
-        Ошибка 404
-      </div>               
-    </div>
-  </div>
-</section>
-<section class="s-section s-begin-form elements-content s-reply s-question gallery-elments">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
+
+{layout:set name="breadcrumbs"}
+<a href="/">Главная</a> / 
+<span>Ошибка 404</span>      
+{/layout:set}
+
+<div class="box-product">
         <h1 class="text-center">Ошибка 404  </h1>
         <p>Страница не найдена. Не переживайте, перейди на главную, посетите наш каталог.</p>
-      </div>
-    </div>
-  </div>
-</section>
+ </div>   

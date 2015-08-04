@@ -159,7 +159,7 @@ ul.nav a {
 	font-weight:bold;
 	padding-top:9px;
 	padding-bottom:9px;
-	padding-left:40px;
+	padding-left:27px;
 	padding-right:27px;
 }
 .navbar ul.nav > li:first-child {
@@ -1789,7 +1789,7 @@ a.active > div > .hover-preview-image {
     height: 44px;
     width: 67px;
 }
-#myModal {
+#compl-1,#compl-2,#compl-3, #compl-4, #compl-5 {
     bottom: 0;
     display: none;
     min-height: 90%;
@@ -1813,6 +1813,10 @@ a.active > div > .hover-preview-image {
     z-index: 1000;
 }
 
+.form-order .alert {
+    position: absolute;
+    bottom: -40px;
+}
 
 
 
@@ -2036,4 +2040,13 @@ div.white-cover {
     text-align: center;
     width: 98%;
     z-index: 9000;
+}
+
+.form.faq-form {
+   overflow: inherit;
+}
+
+.article-img {
+    float:left; 
+    margin-right: 20px;
 }

@@ -92,7 +92,7 @@ $(document).ready(function() {
                   if ($form.attr("id").match("^orderFormSmall-")) {
                     $form.parent().parent().append('<div class="alert alert-success" role="alert">Спасибо. Ваша заявка отправлена.</div>').show(); 
                   } else {
-                    $generalErrors.append('<div class="alert alert-success" role="alert">Спасибо. Ваша заявка отправлена.</div>').show();                    
+                    $generalErrors.append('<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Спасибо. Ваша заявка отправлена.</div>').show();                    
                   }
                   $form[0].reset();
                   $('div.has-error').removeClass('has-error');

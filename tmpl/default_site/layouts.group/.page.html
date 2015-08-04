@@ -2,103 +2,102 @@
 {exp:channel:entries channel="pages|important_info" limit="1" cache="yes" require_entry="yes" refresh="yes" disable="categories|category_fields|member_data|pagination"}
 {if no_results}{redirect="404"}{/if}
  {layout:set name="title" value="{title}"}
- <section class="s-container s-nav-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <a href="{site_url}">Главная</a>
-          <i class="icon icon-navigation"></i>
-          <a class="static-a" href="{url_title}">{title}</a>
-        </div>
-      </div>
-    </div>
-  <hr>
-</section>
 
-<section class="s-container elements-m table-main table-section last-mod">
-    <div class="container">
-        <div class="row">
-            <div class="cc-content">
-      {if content}
-        <h1 class="text-center">{title} {edit_link}</h1>
-        {content}
-      {/if}
-      {if assets}
-          <ul>
-            {assets}
-                <li><a href="{url}">{title}</a></li>
-            {/assets}
-          </ul>
-      {/if}
+
+
+{layout:set name="breadcrumbs"}
+<a href="/">Главная</a> / 
+<span>{title}</span>      
+{/layout:set}
+
+<div class="box-product">
+	  {if content}
+		<h1 class="h1">{title} {edit_link}</h1>
+		{content}
+	  {/if}
+	  {if assets}
+		  <ul>
+			{assets}
+				<li><a href="{url}">{title}</a></li>
+			{/assets}
+		  </ul>
+	  {/if}
 
 {/exp:channel:entries}
 
 {if segment_1=='contacts'}
-<h3 >Отправить сообщение</h3>
+<div class="form faq-form">
+	<div class="head-form">ОСТАВЬТЕ ЗАЯВКУ!</div>
+	<div class="body-form-auto">
 {exp:freeform:form
-        form:id="contactFormMain"
-        form:role="form"
-        form_id="1"
-        required="name|email|message"
-        require_captcha="no"
-        require_ip="yes"
-      }
-      <input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
-              <div id="general_errors_contactFormMain"></div>
+		form:id="contactFormMain"
+		form:role="form"
+		form_id="1"
+		required="name|email|message"
+		require_captcha="no"
+		require_ip="yes"
+	  }
+	  <input type="hidden" name="geo" value="{exp:ee_geo:city}{country}, {region_name}, {city}{/exp:ee_geo:city}">
+			  <div id="general_errors_contactFormMain"></div>
 
-           <div class="form-action">
-                <div class="head-form">
-                <div class="inp">
-                    <span>Имя*:</span><input type="text" class="t-input" placeholder="Ваше имя" name="name">
-                    <div class="error_message"></div>
-                </div>
-                <div class="clear"></div>
-                <div class="inp">
-                    <span>Email*:</span><input type="text" class="t-input" placeholder="Ваш email" name="email">
-                    <div class="error_message"></div>
-                </div>
-                <div class="clear"></div>
-                <div class="rad">
-                   <span>Связаться по:</span>
-                   <label>
-                       <input type="radio" name="contact" value="Телефон">
-                       По телефону
-                   </label>
-                   <label>
-                       <input type="radio" name="contact" value="Email">
-                       E-mail
-                   </label>
-                </div>
-                <div class="selection-type">
-                   <p>Время звонка:</p>
-                   <select name="time" class="m-select" data-mclass="m-white-sel">
-                        <option value="Утром">Утром</option>
-                        <option value="Днём">Днём</option>
-                        <option value="Вечером">Вечером</option>
-                    </select>
-                </div>
-                <div class="clear"></div>
-                <div class="area">
-                    <p>Сообщение*:</p>
-                    <textarea name="message" placeholder="Ваше сообщение"></textarea>
-                    <div class="error_message"></div>
-                </div>
+								<div class="form-group">
+                                    <label for="name">Имя*:</label>
+                                    <input type="text"  name="name" class="form-control" id="name" placeholder="Ваше имя" required="required">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="phone">Телефон:</label>
+                                    <input type="text" name="phone" class="form-control" id="phone" placeholder="Ваш телефон">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="Email">Email*:</label>
+                                    <input type="text" name="email" class="form-control" id="Email" placeholder="Ваш Email" required="required">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Связаться:</label>
+                                      <div class="box-radio">
+                                      <div class="radio">
+                                      		<input type="radio" name="contact" id="optionsRadios1" value="Телефон" checked="">                      
+                                             <label for="optionsRadios1"> По телефону
+                                          </label>
+                                      </div>
+                                      <div class="radio">                  
+                                      		<input type="radio" name="contact" id="optionsRadios2" value="Email" >                      
+                                           <label for="optionsRadios2">   По e-mail
+                                          </label>
+                                      </div>
+                                      </div>
+                                   </div>                                    
+                                   <div class="form-group">
+                                    <label for="message">Время звонка:</label>
+                                    <div class="inline">
+                                        <div class="arrow-select"></div>
+                        				<select name="time" class="m-select" data-mclass="m-white-sel">
+											<option value="Утром">Утром</option>
+											<option value="Днём">Днём</option>
+											<option value="Вечером">Вечером</option>
+										</select>
+                        			</div>
+                                  </div>        
+				
+					<div class="form-group">
+            	        <label for="message">Сообщение*:</label>
+        	            <textarea name="message" class="form-control" rows="2" required="required"></textarea>
+						<div class="error_message"></div>
+                    </div>
 
-                <div class="clear"></div>
-                <button class="btn btn-warning"><i class="fa fa-paper-plane"></i> Оставить заявку</button>
-                <div class="clear"></div>
-           </div>
+					<div class="send">
+                      <button type="submit" class="btn btn-yellow"><span>Задать вопрос</span></button>
+                    </div>
+				
+
+
   
-      {/exp:freeform:form}
-
-
-     
-      </div>
-    </div>
+	  {/exp:freeform:form}
+		
+	</div>
+</div>
 {/if}
 
-      </div>
-    </div>
-  </div>
-</section>
+</div>
+
 

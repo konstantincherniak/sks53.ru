@@ -1,13 +1,13 @@
           {exp:channel:entries channel="gallery" category="{embed:catid}" limit="99"}
         {if {count} %3 == "1"}
-        <div class="row gly">
+        <div class="row">
         {/if}
           
           <div class="col-xs-4">
 
                 <a href="{url_title_path='gallery/album'}"  title="{title}">
                 	{gallery limit="1" cover_only="yes"}
-                  {exp:ce_img:pair src="{image:url:small}" allow_scale_larger="yes" crop="yes" width="240" height="184" cache="yes" refresh="60"}
+                  {exp:ce_img:pair src="{image:url:small}" allow_scale_larger="yes" crop="yes" width="190" height="160" cache="yes" refresh="60"}
                   <img src="{made}"  class="example-image" >
                   {/exp:ce_img:pair}
                 	{/gallery}

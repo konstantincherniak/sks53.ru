@@ -8,39 +8,27 @@
 
   {layout:set name="title" value="{title} / {categories}{category_name}{/categories} / Фотогалерея"}
 
-<section class="s-container s-nav-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <a href="{site_url}">Главная</a>
-                <i class="icon icon-navigation"></i>
-                <a href="/gallery">Наши работы</a>
-                <i class="icon icon-navigation"></i>
-                <a href="/gallery/album/{url_title}" class="static-a">{title}</a>
-            </div>
-        </div>
-    </div>
-    <hr>
-</section>
 
-<section class="s-container gallery-page projects-page">
-  <div class="container">
-    <div class="row">
-      <div class="cc-content">
-        <h1 class="text-center">{title} {edit_link}</h1>
+{layout:set name="breadcrumbs"}
+<a href="/">Главная</a> / 
+<a href="/gallery">Наши работы</a> / 
+<span>{title}</span>      
+{/layout:set}
+
+
+<div class="box-product">
+        <h1 class="h1">{title} {edit_link}</h1>
         {content}
         {gallery}
         {if {image:count} %3 == "1"}
-        <div class="row gly">
+        <div class="galery-box">
         {/if}
-          <div class="col-xs-4">
-              <a href="{exp:ce_img:pair src="{image:url}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  class="fancybox" rel="example_group"  title="{image:title}">
+           <div class="col-md-4 col-sm-4 col-xs-4">
+              <a href="{exp:ce_img:pair src="{image:url}" {wm_pic} cache="yes" refresh="60"}{made}{/exp:ce_img:pair}"  class="fancybox" data-fancybox-group="gallery"  title="{image:title}">
+              <div class="image">
+                <div class="hover-galery"></div>
                 <img src="{image:url:small}" class="example-image" alt="{image:title}">
-                <span class="borb-botom">
-                    <p>
-                        {image:title}                   
-                    </p>
-                </span>  
+              </div>  
               </a>
           </div>
         {if {image:count} %3 == "0" || {image:count} == {image:total} }
@@ -48,9 +36,7 @@
         {/if}
         {/gallery}
       </div>
-    </div>
-  </div>
-</section>
+
 {/exp:channel:entries}
       <script type="text/javascript">
       $(document).ready(function() {
